@@ -1,0 +1,19 @@
+{
+  "name": "wso2-wso2ei",
+  "version": "6.0.0",
+  "author": "WSO2",
+  "license": "Apache-2.0",
+  "summary": "WSO2 Enterprise Integrator Puppet module",
+  "source": "https://github.com/wso2/puppet-ei.git",
+  "project_page": "http://wso2.com/integration",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "12.04", "14.04" ]
+    }
+  ],
+  "tags" : ["wso2ei", "6.0.0"],
+  "dependencies": [
+    { "name": "wso2/wso2base", "version_requirement": "1.0.0" }
+  ]
+}
