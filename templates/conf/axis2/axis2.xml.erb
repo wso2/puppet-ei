@@ -521,8 +521,6 @@
                     Service (GMS) using a TCP ping mechanism.
         -->
         <parameter name="membershipScheme"><%= @clustering['membership_scheme'] %></parameter>
-        <%= scope.function_template(["wso2base/clustering/#{@clustering['membership_scheme']}.erb"]) %>
-
         <!--<parameter name="licenseKey">xxx</parameter>-->
         <!--<parameter name="mgtCenterURL">http://localhost:8081/mancenter/</parameter>-->
 
@@ -584,36 +582,18 @@
         <parameter name="properties">
             <property name="backendServerURL" value="https://${hostName}:${httpsPort}/services/"/>
             <property name="mgtConsoleURL" value="https://${hostName}:${httpsPort}/"/>
- 	    <!-- Manger Setup with Port Mapping-->
-	    <!--property name="port.mapping.8280" value="9764"/>
-            <property name="port.mapping.8243" value="9444"/>
-            <property name="subDomain" value="mgt"/-->
-            <%- if @ports['proxyPort'] and @ports['proxyPort']['pass_through_http'] -%>
-                <property name="port.mapping.8280" value="<%= @ports['proxyPort']['pass_through_http'] %>"/>
-            <%- end -%>
-
-            <%- if @ports['proxyPort'] and @ports['proxyPort']['pass_through_https'] -%>
-                <property name="port.mapping.8243" value="<%= @ports['proxyPort']['pass_through_https'] %>"/>
-            <%- end -%>
-	    <!-- Worker Setup-->
-	    <!--property name="subDomain" value="worker"/-->
-        <property name="subDomain" value="<%= @clustering['sub_domain'] %>"/>
+            <property name="subDomain" value="<%= @clustering['sub_domain'] %>"/>
+        <%- if @clustering['sub_domain'] == 'worker' -%>
+            <property name="port.mapping.8280" value="8280"/>
+            <property name="port.mapping.8243" value="8243"/>
+        <%- end -%>
         </parameter>
 
         <!--
            The list of static or well-known members. These entries will only be valid if the
            "membershipScheme" above is set to "wka"
         -->
-        <%- if @clustering['membership_scheme'] == 'wka' -%>
-        <members>
-        <%- @clustering['wka']['members'].each do |member| -%>
-            <member>
-                <hostName><%= member['hostname'] %></hostName>
-                <port><%= member['port'] %></port>
-            </member>
-        <%- end -%>
-        </members>
-        <%- end -%>
+        <%= scope.function_template(["wso2base/clustering/#{@clustering['membership_scheme']}.erb"]) %>
 
         <!--
         Enable the groupManagement entry if you need to run this node as a cluster manager.

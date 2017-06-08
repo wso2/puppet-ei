@@ -16,8 +16,6 @@ classes:
   - wso2ei
 
 wso2::service_name: wso2ei
-wso2::hostname: "%{::fqdn}"
-wso2::mgt_hostname: "%{::fqdn}"
 
 # System service name
 wso2::service_template: wso2ei/wso2service.erb
@@ -26,15 +24,6 @@ wso2::patches_dir: patches
 
 wso2::file_list:
   - "lib/%{hiera('wso2::datasources::mysql::connector_jar')}"
-
-# Defines WSDL EPR Prefix
-wso2::esb_wsdl_epr_prefix:
-  http:
-    bind_address: "%{hiera('wso2::hostname')}"
-    prefix: "http://%{hiera('wso2::hostname')}:8280"
-  https:
-    bind_address: "%{hiera('wso2::hostname')}"
-    prefix: "https://%{hiera('wso2::hostname')}::8243"
 
 wso2::usermgt_datasource: wso2_user_db
 
@@ -84,85 +73,3 @@ wso2::master_datasources:
     validation_query: "%{hiera('wso2::datasources::mysql::validation_query')}"
     validation_interval: "%{hiera('wso2::datasources::common::validation_interval')}"
 
-# Secure vault configuration
-#wso2::enable_secure_vault: true
-#wso2::secure_vault_configs:
-#  key_store_password:
-#    secret_alias: Carbon.Security.KeyStore.Password
-#    secret_alias_value: conf/carbon.xml//Server/Security/KeyStore/Password,false
-#    password: "%{hiera('wso2::key_stores::key_store::password')}"
-#
-#  key_store_key_password:
-#    secret_alias: Carbon.Security.KeyStore.KeyPassword
-#    secret_alias_value: conf/carbon.xml//Server/Security/KeyStore/KeyPassword,false
-#    password: "%{hiera('wso2::key_stores::key_store::key_password')}"
-#
-#  trust_store_password:
-#    secret_alias: Carbon.Security.TrustStore.Password
-#    secret_alias_value: conf/carbon.xml//Server/Security/TrustStore/Password,false
-#    password: "%{hiera('wso2::key_stores::trust_store::password')}"
-#
-#  user_manager_admin_password:
-#    secret_alias: UserManager.AdminUser.Password
-#    secret_alias_value: conf/user-mgt.xml//UserManager/Realm/Configuration/AdminUser/Password,false
-#    password: "%{hiera('wso2::super_admin::password')}"
-#
-#  wso2_carbon_db_password:
-#    secret_alias: Datasources.WSO2_CARBON_DB.Configuration.Password
-#    secret_alias_value: conf/datasources/master-datasources.xml//datasources-configuration/datasources/datasource[name='WSO2_CARBON_DB']/definition[@type='RDBMS']/configuration/password,false
-#    password: "%{hiera('wso2::datasources::common::password')}"
-#
-#  connector_key_store_password:
-#    secret_alias: Server.Service.Connector.keystorePass
-#    secret_alias_value: conf/tomcat/catalina-server.xml//Server/Service/Connector[@keystorePass],true
-#    password: "%{hiera('wso2::key_stores::connector_key_store::password')}"
-#
-#  wso2_config_db_password:
-#    secret_alias: Datasources.WSO2_CONFIG_DB.Configuration.Password
-#    secret_alias_value: conf/datasources/master-datasources.xml//datasources-configuration/datasources/datasource[name='WSO2_CONFIG_DB']/definition[@type='RDBMS']/configuration/password,false
-#    password: "%{hiera('wso2::datasources::mysql::password')}"
-#
-#  wso2_gov_db_password:
-#    secret_alias: Datasources.WSO2_GOV_DB.Configuration.Password
-#    secret_alias_value: conf/datasources/master-datasources.xml//datasources-configuration/datasources/datasource[name='WSO2_GOV_DB']/definition[@type='RDBMS']/configuration/password,false
-#    password: "%{hiera('wso2::datasources::mysql::password')}"
-#
-#  wso2_user_db_password:
-#    secret_alias: Datasources.WSO2_USER_DB.Configuration.Password
-#    secret_alias_value: conf/datasources/master-datasources.xml//datasources-configuration/datasources/datasource[name='WSO2_USER_DB']/definition[@type='RDBMS']/configuration/password,false
-#    password: "%{hiera('wso2::datasources::mysql::password')}"
-#
-#  axis2_https_listener_trust_store_password:
-#    secret_alias: Axis2.Https.Listener.TrustStore.Password
-#    secret_alias_value: conf/axis2/axis2.xml//axisconfig/transportReceiver[@name='https']/parameter[@name='truststore']/TrustStore/Password,false
-#    password: "%{hiera('wso2::key_stores::trust_store::password')}"
-#
-#  axis2_https_listener_key_store_password:
-#    secret_alias: Axis2.Https.Listener.KeyStore.Password
-#    secret_alias_value: conf/axis2/axis2.xml//axisconfig/transportReceiver[@name='https']/parameter[@name='keystore']/KeyStore/Password,false
-#    password: "%{hiera('wso2::key_stores::key_store::password')}"
-#
-#  axis2_https_listener_key_store_key_password:
-#    secret_alias: Axis2.Https.Listener.KeyStore.KeyPassword
-#    secret_alias_value: conf/axis2/axis2.xml//axisconfig/transportReceiver[@name='https']/parameter[@name='keystore']/KeyStore/KeyPassword,false
-#    password: "%{hiera('wso2::key_stores::key_store::key_password')}"
-#
-#  axis2_https_sender_trust_store_password:
-#    secret_alias: Axis2.Https.Sender.TrustStore.Password
-#    secret_alias_value: conf/axis2/axis2.xml//axisconfig/transportSender[@name='https']/parameter[@name='truststore']/TrustStore/Password,false
-#    password: "%{hiera('wso2::key_stores::trust_store::password')}"
-#
-#  axis2_https_sender_key_store_password:
-#    secret_alias: Axis2.Https.Sender.KeyStore.Password
-#    secret_alias_value: conf/axis2/axis2.xml//axisconfig/transportSender[@name='https']/parameter[@name='keystore']/KeyStore/Password,false
-#    password: "%{hiera('wso2::key_stores::key_store::password')}"
-#
-#  axis2_https_sender_key_store_key_password:
-#    secret_alias: Axis2.Https.Sender.KeyStore.KeyPassword
-#    secret_alias_value: conf/axis2/axis2.xml//axisconfig/transportSender[@name='https']/parameter[@name='keystore']/KeyStore/KeyPassword,false
-#    password: "%{hiera('wso2::key_stores::key_store::key_password')}"
-#
-#  dep_sync_svn_password:
-#    secret_alias: Carbon.DeploymentSynchronizer.SvnPassword
-#    secret_alias_value: conf/carbon.xml//Server/DeploymentSynchronizer/SvnPassword,true
-#    password: password

@@ -99,8 +99,9 @@ class wso2ei (
   $user_management        = $wso2ei::params::user_management
 ) inherits wso2ei::params {
 
-  validate_hash($ei_wsdl_epr_prefix)
-
+  if $ei_wsdl_epr_prefix != undef {
+    validate_hash($ei_wsdl_epr_prefix)
+  }
   validate_hash($master_datasources)
   if $registry_mounts != undef {
     validate_hash($registry_mounts)

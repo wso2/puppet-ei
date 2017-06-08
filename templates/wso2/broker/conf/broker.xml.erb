@@ -31,7 +31,7 @@ This file is ciphertool compliant. Refer PRODUCT_HOME/repository/conf/security/c
         <!-- You can override the cluster node identifier of this MB node using the nodeID. 
         If it is left as "default", the default node ID will be generated for it. (Using IP + UUID).
         The node ID of each member should ALWAYS be unique.-->
-        <nodeID>default</nodeID>
+        <nodeID><%= @ipaddress %></nodeID>
         <!-- Thrift is used to maintain and sync slot (message groups) ranges between MB nodes. -->
         <thriftServerHost><%= @mb_thrift_server %></thriftServerHost>
         <thriftServerPort><%= @mb_thrift_port %></thriftServerPort>
