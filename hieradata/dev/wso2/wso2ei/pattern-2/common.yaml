@@ -19,14 +19,13 @@ wso2::service_name: wso2ei
 wso2::hostname: "%{::fqdn}"
 wso2::mgt_hostname: "%{::fqdn}"
 
+# System service name
+wso2::service_template: wso2ei/wso2service.erb
+
+wso2::patches_dir: patches
+
 wso2::file_list:
   - "lib/%{hiera('wso2::datasources::mysql::connector_jar')}"
-
-#wso2::template_list:
-#  - conf/security/cipher-text.properties
-#  - conf/security/cipher-tool.properties
-#  - bin/ciphertool.sh
-#  - password-tmp
 
 # Defines WSDL EPR Prefix
 wso2::esb_wsdl_epr_prefix:

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
-  ~  Copyright (c) 2017, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+  ~ Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
-  ~  WSO2 Inc. licenses this file to you under the Apache License,
-  ~  Version 2.0 (the "License"); you may not use this file except
-  ~  in compliance with the License.
-  ~  You may obtain a copy of the License at
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
   ~
-  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~ http://www.apache.org/licenses/LICENSE-2.0
   ~
-  ~  Unless required by applicable law or agreed to in writing,
-  ~  software distributed under the License is distributed on an
-  ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  ~  KIND, either express or implied.  See the License for the
-  ~  specific language governing permissions and limitations
-  ~  under the License.
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
   -->
 
 <axisconfig name="AxisJava2.0">
-
+    
     <!-- ================================================= -->
     <!--                  Parameters                       -->
     <!-- ================================================= -->
@@ -62,13 +62,13 @@
     <parameter name="ModulesDirectory">axis2modules</parameter>
 
     <!-- User agent and the server details to be used in the http communication -->
-    <parameter name="userAgent" locked="true">WSO2 EI 6.0.0</parameter>
-    <parameter name="server" locked="true">WSO2 EI 6.0.0</parameter>
+    <parameter name="userAgent" locked="true">WSO2 EI 6.1.1</parameter>
+    <parameter name="server" locked="true">WSO2 EI 6.1.1</parameter>
 
     <!-- During a fault, stacktrace can be sent with the fault message. The following flag -->
     <!-- will control that behaviour -->
     <parameter name="sendStacktraceDetailsWithFaults" locked="false">false</parameter>
-
+    
     <!-- If there aren't any information available to find out the fault reason, we set the -->
     <!-- message of the exception as the faultreason/Reason. But when a fault is thrown from -->
     <!-- a service or some where, it will be wrapped by different levels. Due to this the -->
@@ -77,7 +77,7 @@
     <parameter name="DrillDownToRootCauseForFaultReason" locked="false">false</parameter>
 
     <!-- Set the flag to true if you want to enable transport level session management -->
-    <parameter name="manageTransportSession" locked="false">true</parameter>
+    <parameter name="manageTransportSession">true</parameter>
 
     <!-- This will give out the timout of the configuration contexts, in milliseconds -->
     <parameter name="ConfigContextTimeoutInterval" locked="false">30000</parameter>
@@ -363,7 +363,7 @@
     <!--Uncomment this for FIX transport support
     <transportReceiver name="fix" class="org.apache.synapse.transport.fix.FIXTransportListener"/>
     -->
-
+    
     <!--transportReceiver name="hl7" class="org.wso2.carbon.business.messaging.hl7.transport.HL7TransportListener"/-->
 
     <!-- SAP Transport Listeners -->
@@ -450,7 +450,7 @@
     <!--Uncomment this for FIX transport support
     <transportSender name="fix" class="org.apache.synapse.transport.fix.FIXTransportSender"/>
     -->
-
+    
     <!--transportSender name="hl7" class="org.wso2.carbon.business.messaging.hl7.transport.HL7TransportSender"/-->
 
     <!-- SAP Transport Senders -->
@@ -461,7 +461,7 @@
     <transportSender name="rabbitmq" class="org.apache.axis2.transport.rabbitmq.RabbitMQSender"/-->
 
     <!--<transportSender name="mqtt" class="org.apache.axis2.transport.mqtt.MqttSender"/>-->
-	
+    
     <!--<transportSender name="ws" class="org.wso2.carbon.websocket.transport.WebsocketTransportSender">
         <parameter name="ws.outflow.dispatch.sequence" locked="false">outflowDispatchSeq</parameter>
         <parameter name="ws.outflow.dispatch.fault.sequence" locked="false">outflowFaultSeq</parameter>       
@@ -496,9 +496,10 @@
     <clustering class="org.wso2.carbon.core.clustering.hazelcast.HazelcastClusteringAgent"
                 enable="<%= @clustering['enabled'] %>">
 
-        <!-- Parameter to differentiate clustering mode, Default value will be "WorkerManager" in which
-         case the manager nodes of the cluster won't run schedule tasks-->
-        <parameter name="clusteringPattern">WorkerManager</parameter>
+        <!-- Parameter to differentiate clustering mode, Default value will be "nonWorkerManager" in which
+         case the all nodes of the cluster run schedule tasks-->
+        <parameter name="clusteringPattern">nonWorkerManager</parameter>
+
         <!--
            This parameter indicates whether the cluster has to be automatically initalized
            when the AxisConfiguration is built. If set to "true" the initialization will not be
@@ -633,7 +634,7 @@
     <!-- ================================================= -->
 
     <!--
-        Uncomment and configure the following section to enable transactions support
+        Uncomment and configure the following section to enable transactions support 
     -->
     <!--<transaction timeout="30000">
         <parameter name="java.naming.factory.initial">org.apache.activemq.jndi.ActiveMQInitialContextFactory</parameter>
@@ -693,6 +694,7 @@
         </phase>
         <phase name="Dispatch" class="org.apache.axis2.engine.DispatchPhase">
             <handler name="IntegratorStatefulHandler" class="org.wso2.carbon.integrator.core.handler.IntegratorStatefulHandler"/>
+            <handler name="JSONMessageHandler" class="org.apache.axis2.json.gson.JSONMessageHandler" />
             <handler name="SOAPActionBasedDispatcher"
                      class="org.apache.axis2.dispatchers.SOAPActionBasedDispatcher"/>
             <handler name="RequestURIOperationDispatcher"

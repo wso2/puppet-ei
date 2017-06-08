@@ -1,6 +1,6 @@
 {
   "name": "wso2-wso2ei",
-  "version": "6.0.0",
+  "version": "6.1.1",
   "author": "WSO2",
   "license": "Apache-2.0",
   "summary": "WSO2 Enterprise Integrator Puppet module",
@@ -12,7 +12,7 @@
       "operatingsystemrelease": [ "12.04", "14.04" ]
     }
   ],
-  "tags" : ["wso2ei", "6.0.0"],
+  "tags" : ["wso2ei", "6.1.1"],
   "dependencies": [
     { "name": "wso2/wso2base", "version_requirement": "1.0.0" }
   ]

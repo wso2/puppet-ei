@@ -30,7 +30,7 @@ class wso2ei::params {
 
     # system configuration data
     $packages                 = hiera_array('packages')
-    $template_list            = hiera_array('wso2::template_list')
+    $template_list            = hiera('wso2::template_list')
     $file_list                = hiera_array('wso2::file_list', undef)
     $patch_list               = hiera('wso2::patch_list', undef)
     $system_file_list         = hiera_hash('wso2::system_file_list', undef)
@@ -77,6 +77,33 @@ class wso2ei::params {
 
     $key_stores               = hiera('wso2::key_stores')
 
+    # business process server configuration data
+    $so_timeout                                 = hiera('wso2::so_timeout', undef)
+    $connection_timeout                         = hiera('wso2::connection_timeout', undef)
+    $max_timeout                                = hiera('wso2::mex_timeout', undef)
+    $external_service_timeout                   = hiera('wso2::external_service_timeout', undef)
+    $max_connections_per_host                   = hiera('wso2::max_connections_per_host', undef)
+    $max_total_connections                      = hiera('wso2::max_total_connections', undef)
+    $ode_scheduler_thread_pool_size             = hiera('wso2::ode_scheduler_thread_pool_size', undef)
+    $scheduler_config_max_thread_pool_size      = hiera('wso2::scheduler_config_max_thread_pool_size', undef)
+    $enable_humantask_caching                   = hiera('wso2::enable_humantask_caching', undef)
+    $activiti_datasources                       = hiera('wso2::activiti_datasources', undef)
+    $bps_datasources                            = hiera('wso2::bps_datasources', undef)
+    $taskServerCount                            = hiera('wso2::taskServerCount', undef)
+
+    # broker configuration data
+    $mb_thrift_server     = hiera('wso2::mb_thrift_server', undef)
+    $mb_thrift_port       = hiera('wso2::mb_thrift_port', undef)
+
+    # analytics configuration data
+    $analytics_datasources   = hiera('wso2::analytics_datasources', undef)
+    $spark                   = hiera('wso2::spark', undef)
+    $is_datasource           = hiera('wso2::is_datasource', undef)
+    $ha_deployment           = hiera('wso2::ha_deployment', undef)
+    $portal                  = hiera('wso2::portal', undef)
+
+    $metrics_datasources  = hiera('wso2::metrics_datasources', undef)
+
   } else {
 
     $esb_wsdl_epr_prefix ={
@@ -108,7 +135,7 @@ class wso2ei::params {
       'conf/tomcat/catalina-server.xml',
       'conf/axis2/axis2.xml',
       'conf/security/authenticators.xml',
-      'bin/integrator.sh'
+      'bin/integrator.sh',
     ]
 
     $hosts_mapping            = {
@@ -150,7 +177,7 @@ class wso2ei::params {
     $worker_node              = false
     $patches_dir              = 'patches'
     $service_name             = $product_name
-    $service_template         = 'wso2base/wso2service.erb'
+    $service_template         = 'wso2ei/wso2service.erb'
     $usermgt_datasource       = 'wso2_carbon_db'
     $local_reg_datasource     = 'wso2_carbon_db'
 
@@ -231,7 +258,7 @@ class wso2ei::params {
   }
 
   $product_name               = 'wso2ei'
-  $product_version            = '6.0.0'
+  $product_version            = '6.1.1'
   $platform_version           = '4.4.0'
   $carbon_home                = "${install_dir}/${product_name}-${product_version}"
   $pack_file_abs_path         = "${pack_dir}/${pack_filename}"
