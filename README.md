@@ -26,7 +26,7 @@ git submodule update
 
 Copy the following files to their corresponding locations.
 
-1. WSO2 Enterprise Integrator (6.0.0) to `<PUPPET_HOME>/modules/wso2ei/files`
+1. WSO2 Enterprise Integrator (6.1.1) to `<PUPPET_HOME>/modules/wso2ei/files`
 2. JDK 1.8 distribution to `<PUPPET_HOME>/modules/wso2base/files`
 
 ## Running WSO2 Enterprise Integrator in the `default` profile

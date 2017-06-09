@@ -19,8 +19,8 @@ servers:
     hostname: mgt.ei.dev.wso2.org
     facters:
       product_name: wso2ei
-      product_version: 6.0.0
-      product_profile: manager
+      product_version: 6.1.1
+      product_profile: integrator
       environment: dev
       platform: default
       use_hieradata: true
@@ -35,8 +35,8 @@ servers:
     hostname: esb.dev.wso2.org
     facters:
       product_name: wso2ei
-      product_version: 6.0.0
-      product_profile: manager
+      product_version: 6.1.1
+      product_profile: integrator
       environment: dev
       platform: default
       use_hieradata: true
