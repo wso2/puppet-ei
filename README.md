@@ -1,6 +1,6 @@
 # WSO2 Enterprise Integrator Puppet Module
 
-This repository contains the Puppet Module for installing and configuring WSO2 Enterprise Integrator on various environments. Configuration data is managed using [Hiera](http://docs.puppetlabs.com/hiera/1/). Hiera provides a mechanism for separating configuration data from Puppet scripts and managing them in a separate set of YAML files in a hierarchical manner.
+This repository contains the Puppet Module for installing and configuring WSO2 Enterprise Integrator on various environments. Configuration data is managed using [Hiera](http://docs.puppetlabs.com/hiera/1/). Heira provides a mechanism to separate the configuration data from puppet scripts and to manage them in a separate set of YAML files in a hierarchical manner.
 
 ## Supported Operating Systems
 
@@ -14,43 +14,15 @@ This repository contains the Puppet Module for installing and configuring WSO2 E
 ## How to Contribute
 Follow the steps mentioned in the [wiki](https://github.com/wso2/puppet-base/wiki) to setup a development environment and update/create new puppet modules.
 
-## Add WSO2 Base Puppet Module
-Run the following commands to get wso2base submodule.
+## Running WSO2 Enterprise Integrator in stand-alone mode
+WSO2 Enterprise Integrator consists of the following profiles: Integration profile, Business Process profile, Message Broker profile, and the Analytics profile. Each of these profiles can be configured and started in stand-alone mode using Puppet. No changes are required to Heira data in order to run these profiles in stand-alone mode.
 
-````
-git submodule init
-git submodule update
-````
-
-## Packs to be Copied
-
-Copy the following files to their corresponding locations.
-
-1. WSO2 Enterprise Integrator (6.1.1) to `<PUPPET_HOME>/modules/wso2ei/files`
-2. JDK 1.8 distribution to `<PUPPET_HOME>/modules/wso2base/files`
-
-## Running WSO2 Enterprise Integrator in the `default` profile
-No changes to Hiera data are required to run the `default` profile.  Copy the above mentioned files to their corresponding locations and apply the Puppet Modules by following the https://github.com/wso2/puppet-base/wiki/Use-WSO2-Puppet-Modules-in-puppet-master-agent-Environment.
-
-## Enterprise Integrator specific configs for puppet modules.
-Change following line in the /etc/puppet/environments/production/modules/wso2base/templates/wso2service.erb
-``CMD="${CARBON_HOME}/bin/wso2server.sh"``to ``CMD="${CARBON_HOME}/bin/integrator.sh"``
-
-Remove the "repository" part of the config file locations in the ``/etc/puppet/hieradata/production/wso2/common.yaml``. Those files are in <EI_HOME>/conf folder now. Now the config under ``wso2::template_list:`` section should be as following,
-```
-wso2::template_list:
-  - conf/carbon.xml
-  - conf/user-mgt.xml
-  - conf/registry.xml
-  - conf/datasources/master-datasources.xml
-  - conf/tomcat/catalina-server.xml
-  - conf/axis2/axis2.xml
-  - conf/security/authenticators.xml
-  - bin/integrator.sh
-```
+You can simply copy the files to their corresponding locations as explained [here] (https://github.com/wso2/puppet-base/wiki) and apply the Puppet Modules as follows: https://github.com/wso2/puppet-base/wiki/Use-WSO2-Puppet-Modules-in-puppet-master-agent-Environment.
 
 ## Running WSO2 Enterprise Integrator with clustering in specific profiles
-Hiera data sets matching the distributed profiles of WSO2 Enterprise Integrator (`worker`, `manager`) are shipped with clustering related configuration already enabled. Therefore, only a few changes are needed to setup a distributed deployment. 
+
+The clustering-related configurations that are shipped in each of the profiles of WSO2 EI (Integration profile, Business Process profile, Message Broker profile and the Analytics profile) has the required Hiera data enabled by default. Therefore, only a few additional changes are required in order to set up a distributed deployment using the WSO2 EI profiles as explained below.
+
 
 1. If the Clustering Membership Scheme is `WKA`, add the Well Known Address list.
      Ex:
@@ -72,7 +44,7 @@ Hiera data sets matching the distributed profiles of WSO2 Enterprise Integrator 
                port: 4000
     ```
 
-2. Add external databases to master datasources
+2. Add external databases to master datasources.
 
    Ex:
     ```yaml
@@ -93,7 +65,7 @@ Hiera data sets matching the distributed profiles of WSO2 Enterprise Integrator 
         validation_interval: "%{hiera('wso2::datasources::common::validation_interval')}"
 
     ```
-3. Configure registry mounting
+3. Configure registry mounting.
 
    Ex:
     ```yaml
@@ -112,7 +84,7 @@ Hiera data sets matching the distributed profiles of WSO2 Enterprise Integrator 
       enable_cache: true
     ```
 
-4. Configure deployment synchronization
+4. Configure deployment synchronization.
 
     Ex:
     ```yaml
@@ -166,8 +138,8 @@ Uncomment and modify the below changes in Hiera file to apply Secure Vault.
       - bin/ciphertool.sh
     ```
 
-    Please add the `password-tmp` template also to `template_list` if the `vm_type` is not `docker` when you are running the server in `default` platform.
+     If the `vm_type` is not `docker` when you are running the server in stand-alone mode, be sure to add the `password-tmp` template to `template_list.
 
 
 ## Running WSO2 Enterprise Integrator on Kubernetes
-WSO2 ESB Puppet module ships Hiera data required to deploy WSO2 Enterprise Integrator on Kubernetes. For more information refer to the documentation on [deploying WSO2 products on Kubernetes using WSO2 Puppet Modules](https://docs.wso2.com/display/PM210/Deploying+WSO2+Products+on+Kubernetes+Using+WSO2+Puppet+Modules).
+WSO2 Enterprise Integrator Puppet module ships the Hiera data required for deploying the profiles of WSO2 Enterprise Integrator on Kubernetes. For more information, refer the documentation on [deploying WSO2 products on Kubernetes using WSO2 Puppet Modules](https://docs.wso2.com/display/PM210/Deploying+WSO2+Products+on+Kubernetes+Using+WSO2+Puppet+Modules).
