@@ -53,8 +53,35 @@ class wso2ei (
   $key_stores             = $wso2ei::params::key_stores,
   $carbon_home            = $wso2ei::params::carbon_home,
   $pack_file_abs_path     = $wso2ei::params::pack_file_abs_path,
-  $remove_file_list       = $wso2am_runtime::params::remove_file_list,
+  $remove_file_list       = $wso2ei::params::remove_file_list,
 
+  # business-process profile specific configuration data
+  $so_timeout                                 = $wso2ei::params::so_timeout,
+  $connection_timeout                         = $wso2ei::params::connection_timeout,
+  $max_timeout                                = $wso2ei::params::mex_timeout,
+  $external_service_timeout                   = $wso2ei::params::external_service_timeout,
+  $max_connections_per_host                   = $wso2ei::params::max_connections_per_host,
+  $max_total_connections                      = $wso2ei::params::max_total_connections,
+  $ode_scheduler_thread_pool_size             = $wso2ei::params::ode_scheduler_thread_pool_size,
+  $scheduler_config_max_thread_pool_size      = $wso2ei::params::scheduler_config_max_thread_pool_size,
+  $enable_humantask_caching                   = $wso2ei::params::enable_humantask_caching,
+  $activiti_datasources                       = $wso2ei::params::activiti_datasources,
+  $bps_datasources                            = $wso2ei::params::bps_datasources,
+  $taskServerCount                            = $wso2ei::params::taskServerCount,
+
+  # broker profile specific configuration data
+  $mb_thrift_server     = $wso2ei::params::mb_thrift_server,
+  $mb_thrift_port       = $wso2ei::params::mb_thrift_port,
+
+  # analytics profile specific configuration data
+  $analytics_datasources   = $wso2ei::params::analytics_datasources,
+  $spark                   = $wso2ei::params::spark,
+  $is_datasource           = $wso2ei::params::is_datasource,
+  $ha_deployment           = $wso2ei::params::ha_deployment,
+  $portal                  = $wso2ei::params::portal,
+
+  $metrics_datasources  = $wso2ei::params::metrics_datasources,
+  
   # Templated configuration parameters
   $master_datasources     = $wso2ei::params::master_datasources,
   $registry_mounts        = $wso2ei::params::registry_mounts,
@@ -72,8 +99,9 @@ class wso2ei (
   $user_management        = $wso2ei::params::user_management
 ) inherits wso2ei::params {
 
-  validate_hash($ei_wsdl_epr_prefix)
-
+  if $ei_wsdl_epr_prefix != undef {
+    validate_hash($ei_wsdl_epr_prefix)
+  }
   validate_hash($master_datasources)
   if $registry_mounts != undef {
     validate_hash($registry_mounts)

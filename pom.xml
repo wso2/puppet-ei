@@ -22,7 +22,7 @@
     <groupId>org.wso2.puppet</groupId>
     <artifactId>wso2ei-puppet-module</artifactId>
     <packaging>pom</packaging>
-    <version>6.0.0-SNAPSHOT</version>
+    <version>6.1.1-SNAPSHOT</version>
     <name>WSO2 Enterprise Integrator Puppet Module</name>
 
     <licenses>
