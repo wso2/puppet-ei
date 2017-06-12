@@ -17,7 +17,7 @@ Follow the steps mentioned in the [wiki](https://github.com/wso2/puppet-base/wik
 ## Running WSO2 Enterprise Integrator in stand-alone mode
 WSO2 Enterprise Integrator consists of the following profiles: Integration profile, Business Process profile, Message Broker profile, and the Analytics profile. Each of these profiles can be configured and started in stand-alone mode using Puppet. No changes are required to Heira data in order to run these profiles in stand-alone mode.
 
-You can simply copy the files to their corresponding locations as explained [here] (https://github.com/wso2/puppet-base/wiki) and apply the Puppet Modules as follows: https://github.com/wso2/puppet-base/wiki/Use-WSO2-Puppet-Modules-in-puppet-master-agent-Environment.
+You can simply copy the files to their corresponding locations as explained [here](https://github.com/wso2/puppet-base/wiki) and apply the Puppet Modules as follows: https://github.com/wso2/puppet-base/wiki/Use-WSO2-Puppet-Modules-in-puppet-master-agent-Environment.
 
 ## Running WSO2 Enterprise Integrator with clustering in specific profiles
 
