@@ -11,18 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 ---
-classes:
-  - wso2ei
-
-wso2::service_name: wso2ei
-wso2::hostname: "%{::fqdn}"
-wso2::mgt_hostname: "%{::fqdn}"
-
-# System service name
-wso2::service_template: wso2ei/wso2service.erb
+wso2::hostname: integrator.wso2.com
+wso2::mgt_hostname: ui.integrator.wso2.com
 wso2::product_profile: integrator
-wso2::patches_dir: patches
 
 wso2::template_list:
   - conf/carbon.xml
@@ -32,35 +25,92 @@ wso2::template_list:
   - conf/tomcat/catalina-server.xml
   - conf/axis2/axis2.xml
   - conf/security/authenticators.xml
-  - conf/synapse.properties
-  - repository/deployment/server/eventpublishers/MessageFlowConfigurationPublisher.xml
-  - repository/deployment/server/eventpublishers/MessageFlowStatisticsPublisher.xml
+  - conf/jndi.properties
   - bin/integrator.sh
 #  - conf/security/cipher-text.properties
 #  - conf/security/cipher-tool.properties
 #  - bin/ciphertool.sh
 #  - password-tmp
 
-# Server ports configuration
-wso2::ports:
-  offset: 0
-
 # Defines WSDL EPR Prefix
 wso2::ei_wsdl_epr_prefix:
   http:
-    prefix: "http://%{hiera('wso2::hostname')}:8280"
+    prefix: http://integrator.wso2.com:8280
   https:
-    prefix: "https://%{hiera('wso2::hostname')}::8243"
+    prefix: https://integrator.wso2.com:8243
 
-wso2::analytics:
-  enabled : false
-  payloads_stats: true
-  properties_stats: true
-  all_artifacts_stats: true
-  server_host : localhost
-  server_port : 7612
-  server_username : admin
-  server_password : admin
+wso2::clustering:
+  enabled: true
+  local_member_host: "%{::ipaddress}"
+  domain: wso2.integrator.domain
+  sub_domain: mgt
+  local_member_port: 4000
+# WKA membership scheme
+  membership_scheme: wka
+  wka:
+    members:
+      -
+        hostname: 192.168.100.91
+        port: 4000
+      -
+        hostname: 192.168.100.92
+        port: 4000
+# AWS membership scheme
+#  membership_scheme: aws
+#  aws:
+#    access_key: access-key
+#      secret_key: secret-key
+#      security_group: security-group 
+#      host_header: host-header
+#      region: region
+#      tag_key: tag-key
+#      tag_value: tag-value
+
+wso2::registry_mounts:
+  wso2_config_db:
+    path: /_system/config
+    target_path: /_system/config/ei
+    read_only: false
+    registry_root: /
+    enable_cache: true
+
+  wso2_gov_db:
+    path: /_system/governance
+    target_path: /_system/governance
+    read_only: false
+    registry_root: /
+    enable_cache: true
+
+wso2::dep_sync:
+  enabled: false
+  auto_checkout: true
+  auto_commit: true
+  repository_type: svn
+  svn:
+    url: http://svnrepo.example.com/repos/
+    user: username
+    password: password
+    append_tenant_id: true
+
+# SSO Configuration
+wso2::sso_authentication:
+  enabled: false
+  login_page: /carbon/admin/login.jsp
+  service_provider_id: wso2ei
+  sso_service_url: https://identity.wso2.com:9443/samlsso
+  consumer_service_url: https://integrator.wso2.com:8243/acs
+
+wso2::broker:
+  enabled: true
+  server_username: admin
+  server_password: admin
+  broker_cluster:
+    -
+      hostname: localhost
+      port: 5675
+    -
+      hostname: localhost
+      port: 5675
 
 # Secure vault configuration
 #wso2::enable_secure_vault: true

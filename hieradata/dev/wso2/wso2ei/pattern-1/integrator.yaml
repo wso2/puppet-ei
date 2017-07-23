@@ -21,7 +21,7 @@ wso2::mgt_hostname: "%{::fqdn}"
 
 # System service name
 wso2::service_template: wso2ei/wso2service.erb
-
+wso2::product_profile: integrator
 wso2::patches_dir: patches
 
 wso2::template_list:
@@ -45,10 +45,8 @@ wso2::ports:
 # Defines WSDL EPR Prefix
 wso2::ei_wsdl_epr_prefix:
   http:
-    bind_address: "%{hiera('wso2::hostname')}"
     prefix: "http://%{hiera('wso2::hostname')}:8280"
   https:
-    bind_address: "%{hiera('wso2::hostname')}"
     prefix: "https://%{hiera('wso2::hostname')}::8243"
 
 # Secure vault configuration
