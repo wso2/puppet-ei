@@ -41,6 +41,8 @@ class wso2ei::params {
 
     $master_datasources       = hiera_hash('wso2::master_datasources')
     $registry_mounts          = hiera_hash('wso2::registry_mounts', undef)
+    $analytics                = hiera_hash('wso2::analytics', undef)
+    $broker                   = hiera_hash('wso2::broker', undef)
     $carbon_home_symlink      = hiera('wso2::carbon_home_symlink')
     $wso2_user                = hiera('wso2::user')
     $wso2_group               = hiera('wso2::group')
@@ -70,6 +72,7 @@ class wso2ei::params {
     $sso_authentication       = hiera('wso2::sso_authentication')
     $user_management          = hiera('wso2::user_management')
     $enable_secure_vault      = hiera('wso2::enable_secure_vault')
+    $product_profile          = hiera('wso2::product_profile')
 
     if $enable_secure_vault {
       $secure_vault_configs   = hiera('wso2::secure_vault_configs')
@@ -108,11 +111,9 @@ class wso2ei::params {
 
     $esb_wsdl_epr_prefix ={
       http => {
-        bind_address=> "esb.dev.wso2.org",
         prefix      => "http: //ei.dev.wso2.org:8280"
       },
       https=>{
-        bind_address=> "ei.dev.wso2.org",
         prefix      => "https: //ei.dev.wso2.org:8243"
       }
     }

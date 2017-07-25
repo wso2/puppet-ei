@@ -54,6 +54,9 @@ class wso2ei (
   $carbon_home            = $wso2ei::params::carbon_home,
   $pack_file_abs_path     = $wso2ei::params::pack_file_abs_path,
   $remove_file_list       = $wso2ei::params::remove_file_list,
+  $analytics              = $wso2ei::params::analytics,
+  $broker                 = $wso2ei::params::broker,
+  $product_profile        = $wso2ei::params::product_profile,
 
   # business-process profile specific configuration data
   $so_timeout                                 = $wso2ei::params::so_timeout,
@@ -105,6 +108,12 @@ class wso2ei (
   validate_hash($master_datasources)
   if $registry_mounts != undef {
     validate_hash($registry_mounts)
+  }
+  if $analytics != undef {
+    validate_hash($analytics)
+  }
+  if $broker != undef {
+    validate_hash($broker)
   }
   validate_string($hostname)
   validate_string($mgt_hostname)

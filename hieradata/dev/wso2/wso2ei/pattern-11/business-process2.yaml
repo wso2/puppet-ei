@@ -13,8 +13,9 @@
 # limitations under the License.
 
 ---
-wso2::hostname: bps.dev.wso2.org
-wso2::mgt_hostname: mgt.bps.dev.wso2.org
+wso2::hostname: business-process.wso2.com
+wso2::mgt_hostname: ui.business-process.wso2.com
+wso2::product_profile: business-process
 
 wso2::template_list:
   - wso2/business-process/conf/bps.xml
@@ -85,7 +86,7 @@ wso2::bps_datasources:
 wso2::clustering:
   enabled: true
   local_member_host: "%{::ipaddress}"
-  domain: bps.wso2.domain
+  domain: wso2.business-process.domain
   sub_domain: mgt
   local_member_port: 4000
 # WKA membership scheme
@@ -140,8 +141,8 @@ wso2::sso_authentication:
   enabled: false
   login_page: /carbon/admin/login.jsp
   service_provider_id: wso2ei
-  sso_service_url: https://is.dev.wso2.org:9443/samlsso
-  consumer_service_url: https://bps.dev.wso2.org:8243/acs
+  sso_service_url: https://identity.wso2.com:9443/samlsso
+  consumer_service_url: https://business-process.wso2.com:8243/acs
 
 # Secure vault configuration
 #wso2::enable_secure_vault: true

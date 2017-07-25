@@ -1,0 +1,35 @@
+#
+# Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+#
+# WSO2 Inc. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+# register some connection factories
+# connectionfactory.[jndiname] = [ConnectionURL]
+<%- if @broker and @broker['enabled'] and @broker['broker_cluster'] -%>
+connectionfactory.QueueConnectionFactory = amqp://<%= @broker['server_username'] %>:<%= @broker['server_password'] %>@clientID/carbon?failover='roundrobin'&cyclecount='2'&brokerlist='<%- @broker['broker_cluster'].each_with_index  do |(node,i),n| -%>tcp://<%= node['hostname'] %>:<%= node['port'] %>?retries='5'&connectdelay='50'<%= ';' if n <(@broker['broker_cluster'].size - 1) %><%- end -%>'
+connectionfactory.TopicConnectionFactory = amqp://<%= @broker['server_username'] %>:<%= @broker['server_password'] %>@clientID/carbon?failover='roundrobin'&cyclecount='2'&brokerlist='<%- @broker['broker_cluster'].each_with_index  do |(node,i),n| -%>tcp://<%= node['hostname'] %>:<%= node['port'] %>?retries='5'&connectdelay='50'<%= ';' if n <(@broker['broker_cluster'].size - 1) %><%- end -%>'
+<%- else -%>
+connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5675'
+connectionfactory.TopicConnectionFactory = amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5675'
+<%- end -%>
+
+# register some queues in JNDI using the form
+# queue.[jndiName] = [physicalName]
+queue.MyQueue = example.MyQueue
+
+# register some topics in JNDI using the form
+# topic.[jndiName] = [physicalName]
+topic.MyTopic = example.MyTopic
