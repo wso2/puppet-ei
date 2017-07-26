@@ -1,61 +1,96 @@
 # WSO2 Enterprise Integrator Puppet Module
 
-This repository contains the Puppet Module for installing and configuring WSO2 Enterprise Integrator on various environments. Configuration data is managed using [Hiera](http://docs.puppetlabs.com/hiera/1/). Heira provides a mechanism to separate the configuration data from puppet scripts and to manage them in a separate set of YAML files in a hierarchical manner.
+This is the Puppet Module for installing and configuring WSO2 Enterprise Integrator in the 11 basic deployment patterns. First four patterns are standalone product profile deployment and rest of the patterns are HA deployment. Configuration data is managed using [Hiera](http://docs.puppetlabs.com/hiera/1/). Hiera provides a mechanism for separating configuration data from Puppet scripts and managing them in a set of YAML files in a hierarchical manner.
+
+This guide includes the the basic and common information related to each deployment pattern. Follow the instructions here, to setup any deployment pattern. For specific information on each pattern, refer the relevant README file in each pattern related hieradata directory (i.e. for pattern 5 : puppet-ei/hieradata/dev/wso2/wso2ei/pattern-5/README.md)
+
+1. [Pattern 1 - README](hieradata/dev/wso2/wso2ei/pattern-1/README.md)
+2. [Pattern 2 - README](hieradata/dev/wso2/wso2ei/pattern-2/README.md)
+3. [Pattern 3 - README](hieradata/dev/wso2/wso2ei/pattern-3/README.md)
+4. [Pattern 4 - README](hieradata/dev/wso2/wso2ei/pattern-4/README.md)
+5. [Pattern 5 - README](hieradata/dev/wso2/wso2ei/pattern-5/README.md)
+6. [Pattern 6 - README](hieradata/dev/wso2/wso2ei/pattern-6/README.md)
+7. [Pattern 7 - README](hieradata/dev/wso2/wso2ei/pattern-7/README.md)
+8. [Pattern 8 - README](hieradata/dev/wso2/wso2ei/pattern-8/README.md)
+9. [Pattern 9 - README](hieradata/dev/wso2/wso2ei/pattern-9/README.md)
+10. [Pattern 10 - README](hieradata/dev/wso2/wso2ei/pattern-10/README.md)
+11. [Pattern 11 - README](hieradata/dev/wso2/wso2ei/pattern-11/README.md)
+
+Please note that the load balancer configurations are not done by puppet. HA deployment pattern images Ex: [pattern-5](https://github.com/wso2/docker-ei/tree/master/docker-compose/pattern-5) consist of load balancers so that it will be convenient to understand the connections when configured load balancing, which is usually done in a production environment.
+
+## How to Contribute
+
+Follow the steps mentioned in the [wiki](https://github.com/wso2/puppet-base/wiki) to setup a development environment and update/create new puppet modules.
+
+## Setup Puppet Environment
+
+* Setup the puppet environment with the puppet modules wso2ei, wso2common and wso2base.
+* WSO2 EI 6.1.1 puppet modules are compatible and tested with [puppet-base](https://github.com/wso2/puppet-base/) version 1.0.0 and [puppet-common](https://github.com/wso2/puppet-common) version 1.0.0
+* So if using puppet-common's setup.sh to setup the PUPPET_HOME, use this version (1.0.0) of puppet-common.
+* After setting up PUPPET_HOME using puppet-common's setup.sh, checkout the above mentioned compatible version of puppet-base.
 
 ## Supported Operating Systems
 
-- Ubuntu 14.04 or higher
-- RedHat Enterprise Linux 6.7
+- Debian 6 or higher
+- Ubuntu 14.04
 
 ## Supported Puppet Versions
 
-- Puppet 2.7, 3 or newer
+- Puppet 3.x
 
-## How to Contribute
-Follow the steps mentioned in the [wiki](https://github.com/wso2/puppet-base/wiki) to setup a development environment and update/create new puppet modules.
+## Configuring WSO2 EI Integrator Profile
 
-## Running WSO2 Enterprise Integrator in stand-alone mode
-WSO2 Enterprise Integrator consists of the following profiles: Integration profile, Business Process profile, Message Broker profile, and the Analytics profile. Each of these profiles can be configured and started in stand-alone mode using Puppet. No changes are required to Heira data in order to run these profiles in stand-alone mode.
+Patterns 1, 2, 5, 6, 9, 10 and 11 are configured with WSO2 EI Integrator profile.
 
-You can simply copy the files to their corresponding locations as explained [here](https://github.com/wso2/puppet-base/wiki) and apply the Puppet Modules as follows: https://github.com/wso2/puppet-base/wiki/Use-WSO2-Puppet-Modules-in-puppet-master-agent-Environment.
+## Configuring WSO2 EI Analytics Profile
+
+Patterns 2, 6, 10 and 11 are configured with WSO2 EI Analytics profile.
+
+## Configuring WSO2 EI Business Process Profile
+
+Patterns 3, 7, 11 are configured with WSO2 EI Business process profile
+
+## Configuring WSO2 EI Broker Profile
+
+Patterns 9, 10 and 11 are configured with WSO2 EI Broker profile.
+
+## Packs to be Copied
+
+Copy the following files to their corresponding locations, in the Puppet Master.
+
+1. WSO2 Enterprise Integrator 6.1.1 distribution (wso2ei-6.1.1.zip)to `<PUPPET_HOME>/modules/wso2ei/files`
+2. JDK jdk-8u131-linux-x64.tar.gz distribution to `<PUPPET_HOME>/modules/wso2base/files`
+3. (if using MySQL databases)MySQL JDBC driver JAR (mysql-connector-java-x.x.xx-bin.jar) into the <PUPPET_HOME>/modules/wso2ei/files/configs/lib
+4. (if using svn based deployment synchronization)
+    a. svnkit-all-1.8.7.wso2v1.jar into <PUPPET_HOME>/modules/wso2ei/files/configs/dropins
+    b. trilead-ssh2-1.0.0-build215.jar into <PUPPET_HOME>/modules/wso2ei/files/configs/dropins
 
 ## Running WSO2 Enterprise Integrator with clustering in specific profiles
 
-The clustering-related configurations that are shipped in each of the profiles of WSO2 EI (Integration profile, Business Process profile, Message Broker profile and the Analytics profile) has the required Hiera data enabled by default. Therefore, only a few additional changes are required in order to set up a distributed deployment using the WSO2 EI profiles as explained below.
+Hiera data sets matching the distributed profiles of WSO2 Enterprise Integrator (`integrator`, `analytics`, `business-process`, `broker`) are shipped with clustering related configuration already enabled. Therefore, only a few changes are needed to setup a distributed deployment in your preferred deployment pattern, before running the puppet agent. For more details refer the [Clustering the Ennterprise Integrator](https://docs.wso2.com/display/EI611/Clustered+Deployment) docs.
 
+Do the changes in hieradata .yaml files in the related pattern.
 
-1. If the Clustering Membership Scheme is `WKA`, add the Well Known Address list.
-   Ex:
-    ```yaml
-    wso2::clustering:
-      enabled: true
-      local_member_host: "%{::ipaddress}"
-      domain: wso2.integrator.domain
-      sub_domain: mgt
-      local_member_port: 4000
-    # WKA membership scheme
-      membership_scheme: wka
-      wka:
-        members:
-          -
-            hostname: 192.168.100.91
-	   port: 4000
-          -
-            hostname: 192.168.100.92
-            port: 4000
-    # AWS membership scheme
-    #  membership_scheme: aws
-    #  aws:
-    #    access_key: access-key
-    #      secret_key: secret-key
-    #      security_group: security-group 
-    #      host_header: host-header
-    #      region: region
-    #      tag_key: tag-key
-    #      tag_value: tag-value
-    ```
+1. Update the host name
 
-2. Add external databases to master datasources.
+Make sure to update `wso2::hostname` and `wso2::mgt_hostname` in .yaml files of relevant pattern according to load balancer. If environment doesn't have load balancer, then make sure to add host name mapping to the /etc/hosts file. Puppet will add the required host entries explicitly in /etc/hosts file in the Agent. For that you have to add the hosts mappings appropriately in common.yaml (for patterns 5 to 11).
+
+Ex:
+   ```yaml
+    wso2::hosts_mapping:
+      integrator_host:
+        ip: 192.168.57.186
+        name: integrator.wso2.com
+      integrator_mgt_host:
+        ip: 192.168.57.186
+        name: ui.integrator.wso2.com
+   ```
+
+2. Add the Well Known Address list for cluster.
+
+Pattern 5-11 consists of clusters deployment of each profile. If you are using those patterns, update members list appropriately in relevant .yaml files. Refer each pattern's README for more info.
+
+3. Modify the MySQL based data sources to point to the external MySQL servers in all the hiera data files. (You have just to replace the IP address, with the IP address of database server you are using). If you want to use any other database except MySQL, update the data sources appropriately.
 
    Ex:
     ```yaml
@@ -74,44 +109,50 @@ The clustering-related configurations that are shipped in each of the profiles o
         default_auto_commit: "%{hiera('wso2::datasources::common::default_auto_commit')}"
         validation_query: "%{hiera('wso2::datasources::mysql::validation_query')}"
         validation_interval: "%{hiera('wso2::datasources::common::validation_interval')}"
-
     ```
-3. Configure registry mounting.
+    If MySQL databases are used, uncomment the file_list entry for JDBC connector jar in relevant hiera data files (In patterns 5-11 : common.yaml).
 
-   Ex:
     ```yaml
-    wso2_config_db:
-      path: /_system/config
-      target_path: /_system/config/ei
-      read_only: false
-      registry_root: /
-      enable_cache: true
-
-    wso2_gov_db:
-      path: /_system/governance
-      target_path: /_system/governance
-      read_only: false
-      registry_root: /
-      enable_cache: true
+    wso2::file_list:
+      - "lib/%{hiera('wso2::datasources::mysql::connector_jar')}"
     ```
+    And update the jar file name appropriately if your file name is not mysql-connector-java-5.1.39-bin.jar in <PUPPET_HOME>/hieradata/dev/wso2/common.yaml (for patterns 5 to 11).
 
-4. Configure SVN based deployment synchronization. (Optional)
+    ```yaml
+    wso2::datasources::mysql::connector_jar: mysql-connector-java-5.1.39-bin.jar
+    ```
+4. Configure deployment synchronization in integrator, analytics and business-process clusters. This can be done via multiple approaches.
+
+* SVN Based
+
+Patterns 5-11 are configured for svn based deployment synchronization, but they are disabled out by default. Do enable them and update correct details.
 
     Ex:
-     ```yaml
+    ```yaml
     wso2::dep_sync:
-       enabled: true
-       auto_checkout: true
-       auto_commit: true
-       repository_type: svn
-       svn:
-          url: http://svnrepo.example.com/repos/
-          user: username
-          password: password
-          append_tenant_id: true
-     ```
+        enabled: true
+        auto_checkout: true
+        auto_commit: true
+        repository_type: svn
+        svn:
+           url: http://svnrepo.example.com/repos/
+           user: username
+           password: password
+           append_tenant_id: true
+    ```
+Copy the required jars for svn, into respective locations as described under the topic **Packs to be Copied**. And add the file_list entries for those two jar files in those hiera data files related to cluster deployment.
+
+    ```yaml
+    wso2::file_list:
+       -  "dropins/svnkit-all-1.8.7.wso2v1.jar"
+       -  "lib/trilead-ssh2-1.0.0-build215.jar"
+    ```
+* Rsync
+
+Note that WSO2 now recommends rsync instead of svn, for deployment synchronization. So if you prefer to use rsync follow the [WSO2 Docs on Configuring rsync for Deployment Synchronization](https://docs.wso2.com/display/CLUSTER44x/Configuring+rsync+for+Deployment+Synchronization)
 
 ## Running WSO2 Enterprise Integrator with Secure Vault
+
 WSO2 Carbon products may contain sensitive information such as passwords in configuration files. [WSO2 Secure Vault](https://docs.wso2.com/display/Carbon444/Securing+Passwords+in+Configuration+Files) provides a solution for securing such information.
 
 Uncomment and modify the below changes in Hiera file to apply Secure Vault.
@@ -133,24 +174,44 @@ Uncomment and modify the below changes in Hiera file to apply Secure Vault.
     ```
 
     Ex:
+
     ```yaml
     wso2::secure_vault_configs:
       key_store_password:
         secret_alias: Carbon.Security.KeyStore.Password
-        secret_alias_value: repository/conf/carbon.xml//Server/Security/KeyStore/Password,false
+        secret_alias_value: conf/carbon.xml//Server/Security/KeyStore/Password,false
         password: wso2carbon
     ```
+    
 3. Add Cipher Tool configuration file templates to `template_list`
 
     ```yaml
     wso2::template_list:
-      - repository/conf/security/cipher-text.properties
-      - repository/conf/security/cipher-tool.properties
+      - conf/security/cipher-text.properties
+      - conf/security/cipher-tool.properties
       - bin/ciphertool.sh
     ```
 
-     If the `vm_type` is not `docker` when you are running the server in stand-alone mode, be sure to add the `password-tmp` template to `template_list.
+Please add the `password-tmp` template also to `template_list` if the `vm_type` is not `docker` when you are running the server in `default` platform.
 
+## Keystore and client-truststore related configs
 
-## Running WSO2 Enterprise Integrator on Kubernetes
-WSO2 Enterprise Integrator Puppet module ships the Hiera data required for deploying the profiles of WSO2 Enterprise Integrator on Kubernetes. For more information, refer the documentation on [deploying WSO2 products on Kubernetes using WSO2 Puppet Modules](https://docs.wso2.com/display/PM210/Deploying+WSO2+Products+on+Kubernetes+Using+WSO2+Puppet+Modules).
+This repository includes default keystore and clint-truststore in <PUPPET_HOME>/modules/wso2ei/files/configs/repository/resources/security for the initial setup (testing) purpose. This wso2carbon.jks keystore is created for CN=localhost, and its self signed certificate is imported into the client-truststore.jks. When running puppet agent, these two files replace the existing default wso2carbon.jks and client-truststore.jks files.
+
+In the production environments, it is recommended to replace these with your own keystores and trust stores with CA signed certificates. Also if also you change the host names given by-default in these patterns, you have to create your own ones. For more info read [WSO2 Docs on Creating Keystores](https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores).
+
+Following steps can be followed to create new keystore and clint-truststore with self signed certificates.
+
+1 . Generate a Java keystore and key pair with self-signed certificate:
+```
+    keytool -genkey -alias wso2carbon -keyalg RSA -keysize 2048 -keystore wso2carbon.jks -dname "CN=*.integrator.wso2.com,OU=Home,O=Home,L=SL,S=WS,C=LK" -storepass wso2carbon -keypass wso2carbon -validity 2000
+```
+2 . Export a certificate from a keystore:
+```
+    keytool -export -keystore wso2carbon.jks -alias wso2carbon -file wso2carbon.cer
+```
+3 . Import a certificate into a trust store:
+```
+    keytool -import -alias wso2carbon -file wso2carbon.cer -keystore client-truststore.jks -storepass wso2carbon
+```
+
