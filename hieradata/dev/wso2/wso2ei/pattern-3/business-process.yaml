@@ -24,6 +24,13 @@ wso2::service_template: wso2ei/wso2service.erb
 wso2::product_profile: business-process
 wso2::patches_dir: patches
 
+wso2::key_store: wso2carbon.jks
+wso2::trust_store: client-truststore.jks
+
+wso2::file_list:
+  - "repository/resources/security/%{hiera('wso2::key_store')}"
+  - "repository/resources/security/%{hiera('wso2::trust_store')}"
+
 wso2::template_list:
   - wso2/business-process/conf/bps.xml
   - wso2/business-process/conf/carbon.xml

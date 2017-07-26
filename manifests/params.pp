@@ -48,6 +48,8 @@ class wso2ei::params {
     $wso2_group               = hiera('wso2::group')
     $maintenance_mode         = hiera('wso2::maintenance_mode')
     $install_mode             = hiera('wso2::install_mode')
+    $key_store                = hiera('wso2::key_store')
+    $trust_store              = hiera('wso2::trust_store')
 
     if $install_mode == 'file_repo' {
       $remote_file_url        = hiera('remote_file_url')
