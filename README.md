@@ -25,23 +25,34 @@ The clustering-related configurations that are shipped in each of the profiles o
 
 
 1. If the Clustering Membership Scheme is `WKA`, add the Well Known Address list.
-     Ex:
+   Ex:
     ```yaml
     wso2::clustering:
-        enabled: true
-        domain: esb.wso2.domain
-        local_member_host: "%{::ipaddress}"
-        local_member_port: 4000
-        membership_scheme: wka
-        sub_domain: mgt
-        wka:
-           members:
-             -
-               hostname: 192.168.100.91
-               port: 4000
-             -
-               hostname: 192.168.100.92
-               port: 4000
+      enabled: true
+      local_member_host: "%{::ipaddress}"
+      domain: wso2.integrator.domain
+      sub_domain: mgt
+      local_member_port: 4000
+    # WKA membership scheme
+      membership_scheme: wka
+      wka:
+        members:
+          -
+            hostname: 192.168.100.91
+	   port: 4000
+          -
+            hostname: 192.168.100.92
+            port: 4000
+    # AWS membership scheme
+    #  membership_scheme: aws
+    #  aws:
+    #    access_key: access-key
+    #      secret_key: secret-key
+    #      security_group: security-group 
+    #      host_header: host-header
+    #      region: region
+    #      tag_key: tag-key
+    #      tag_value: tag-value
     ```
 
 2. Add external databases to master datasources.
@@ -53,7 +64,7 @@ The clustering-related configurations that are shipped in each of the profiles o
         name: WSO2_CONFIG_DB
         description: The datasource used for config registry
         driver_class_name: "%{hiera('wso2::datasources::mysql::driver_class_name')}"
-        url: jdbc:mysql://192.168.100.1:3306/WSO2REG_DB?autoReconnect=true
+        url: jdbc:mysql://192.168.100.1:3306/WSO2_CONFIG_DB?autoReconnect=true
         username: "%{hiera('wso2::datasources::mysql::username')}"
         password: "%{hiera('wso2::datasources::mysql::password')}"
         jndi_config: jdbc/WSO2_CONFIG_DB
@@ -71,7 +82,7 @@ The clustering-related configurations that are shipped in each of the profiles o
     ```yaml
     wso2_config_db:
       path: /_system/config
-      target_path: /_system/config/esb
+      target_path: /_system/config/ei
       read_only: false
       registry_root: /
       enable_cache: true
@@ -84,21 +95,21 @@ The clustering-related configurations that are shipped in each of the profiles o
       enable_cache: true
     ```
 
-4. Configure deployment synchronization.
+4. Configure SVN based deployment synchronization. (Optional)
 
     Ex:
-    ```yaml
+     ```yaml
     wso2::dep_sync:
-        enabled: true
-        auto_checkout: true
-        auto_commit: true
-        repository_type: svn
-        svn:
-           url: http://svnrepo.example.com/repos/
-           user: username
-           password: password
-           append_tenant_id: true
-    ```
+       enabled: true
+       auto_checkout: true
+       auto_commit: true
+       repository_type: svn
+       svn:
+          url: http://svnrepo.example.com/repos/
+          user: username
+          password: password
+          append_tenant_id: true
+     ```
 
 ## Running WSO2 Enterprise Integrator with Secure Vault
 WSO2 Carbon products may contain sensitive information such as passwords in configuration files. [WSO2 Secure Vault](https://docs.wso2.com/display/Carbon444/Securing+Passwords+in+Configuration+Files) provides a solution for securing such information.
