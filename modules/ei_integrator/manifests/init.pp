@@ -120,6 +120,7 @@ class ei_integrator (
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
+
   # Install WSO2 Enterprise Integrator
   package { $product:
     ensure   => installed,
