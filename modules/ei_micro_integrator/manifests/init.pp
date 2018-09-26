@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 
 # Class: ei_micro_integrator
-# Init class of EI Integrator default profile
+# Init class of EI Integrator - Micro Integrator profile
 class ei_micro_integrator (
   $user = $ei_micro_integrator::params::user,
   $user_id = $ei_micro_integrator::params::user_id,
@@ -112,7 +112,7 @@ class ei_micro_integrator (
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
-  # Install WSO2 API Manager
+  # Install WSO2 Enterprise Integrator
   package { $product:
     ensure   => installed,
     provider => $installer_provider,
@@ -160,7 +160,7 @@ class ei_micro_integrator (
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> apim -> files
+    Note: Ensure that file is available in modules -> ei_micro_integrator -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,

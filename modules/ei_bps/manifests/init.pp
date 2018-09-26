@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 
 # Class: ei_bps
-# Init class of EI Integrator default profile
+# Init class of EI Integrator - Business Process profile
 class ei_bps (
   $user = $ei_bps::params::user,
   $user_id = $ei_bps::params::user_id,
@@ -96,7 +96,7 @@ class ei_bps (
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
-  # Install WSO2 API Manager
+  # Install WSO2 Enterprise Integrator
   package { $product:
     ensure   => installed,
     provider => $installer_provider,
@@ -144,7 +144,7 @@ class ei_bps (
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> apim -> files
+    Note: Ensure that file is available in modules -> ei_bps -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,

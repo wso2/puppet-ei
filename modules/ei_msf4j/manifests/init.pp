@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 
 # Class: ei_msf4j
-# Init class of EI Integrator default profile
+# Init class of EI Integrator - MSF4J profile
 class ei_msf4j (
   $user = $ei_msf4j::params::user,
   $user_id = $ei_msf4j::params::user_id,
@@ -86,7 +86,7 @@ class ei_msf4j (
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
-  # Install WSO2 API Manager
+  # Install WSO2 Enterprise Integrator
   package { $product:
     ensure   => installed,
     provider => $installer_provider,
@@ -134,7 +134,7 @@ class ei_msf4j (
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> apim -> files
+    Note: Ensure that file is available in modules -> ei_msf4j -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,

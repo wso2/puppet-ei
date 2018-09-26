@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 
 # Class: ei_broker
-# Init class of EI Integrator default profile
+# Init class of EI Integrator - Broker profile
 class ei_broker (
   $user = $ei_broker::params::user,
   $user_id = $ei_broker::params::user_id,
@@ -124,7 +124,7 @@ class ei_broker (
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
-  # Install WSO2 API Manager
+  # Install WSO2 Enterprise Integrator
   package { $product:
     ensure   => installed,
     provider => $installer_provider,
@@ -172,7 +172,7 @@ class ei_broker (
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> apim -> files
+    Note: Ensure that file is available in modules -> ei_broker -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,
