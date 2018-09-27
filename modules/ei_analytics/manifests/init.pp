@@ -14,69 +14,56 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class: ei_integrator
-# Init class of EI Integrator default profile
-class ei_integrator (
-  $user = $ei_integrator::params::user,
-  $user_id = $ei_integrator::params::user_id,
-  $user_group = $ei_integrator::params::user_group,
-  $user_group_id = $ei_integrator::params::user_group_id,
-  $product = $ei_integrator::params::product,
-  $product_version = $ei_integrator::params::product_version,
-  $profile = $ei_integrator::params::profile,
-  $service_name = $ei_integrator::params::service_name,
-  $template_list = $ei_integrator::params::template_list,
-  $jre_version = $ei_integrator::params::jre_version,
-  $start_script_template = $ei_integrator::params::start_script_template,
+# Class: ei_analytics
+# Init class of EI Integrator - Analytics profile
+class ei_analytics (
+  $user = $ei_analytics::params::user,
+  $user_id = $ei_analytics::params::user_id,
+  $user_group = $ei_analytics::params::user_group,
+  $user_group_id = $ei_analytics::params::user_group_id,
+  $product = $ei_analytics::params::product,
+  $product_version = $ei_analytics::params::product_version,
+  $profile = $ei_analytics::params::profile,
+  $service_name = $ei_analytics::params::service_name,
+  $template_list = $ei_analytics::params::template_list,
+  $jre_version = $ei_analytics::params::jre_version,
+  $start_script_template = $ei_analytics::params::start_script_template,
 
   # ------ Configuration Params ------ #
 
-  # master-datasources.xml
-  $carbon_db_url = $ei_integrator::params::carbon_db_url,
-  $carbon_db_username = $ei_integrator::params::carbon_db_username,
-  $carbon_db_password = $ei_integrator::params::carbon_db_password,
-  $carbon_db_driver = $ei_integrator::params::carbon_db_driver,
+  # analytics-datasources.xml
+  $event_store_db_url = $ei_analytics::params::event_store_db_url,
+  $event_store_db_username = $ei_analytics::params::event_store_db_username,
+  $event_store_db_password = $ei_analytics::params::event_store_db_password,
+  $event_store_db_driver = $ei_analytics::params::event_store_db_driver,
+
+  $processed_data_store_db_url = $ei_analytics::params::processed_data_store_db_url,
+  $processed_data_store_db_username = $ei_analytics::params::processed_data_store_db_username,
+  $processed_data_store_db_password = $ei_analytics::params::processed_data_store_db_password,
+  $processed_data_store_db_driver = $ei_analytics::params::processed_data_store_db_driver,
 
   # carbon.xml
-  $security_keystore_location = $ei_integrator::params::security_keystore_location,
-  $security_keystore_type = $ei_integrator::params::security_keystore_type,
-  $security_keystore_password = $ei_integrator::params::security_keystore_password,
-  $security_keystore_key_alias = $ei_integrator::params::security_keystore_key_alias,
-  $security_keystore_key_password = $ei_integrator::params::security_keystore_key_password,
+  $security_keystore_location = $ei_analytics::params::security_keystore_location,
+  $security_keystore_type = $ei_analytics::params::security_keystore_type,
+  $security_keystore_password = $ei_analytics::params::security_keystore_password,
+  $security_keystore_key_alias = $ei_analytics::params::security_keystore_key_alias,
+  $security_keystore_key_password = $ei_analytics::params::security_keystore_key_password,
 
-  $security_trust_store_location = $ei_integrator::params::security_trust_store_location,
-  $security_trust_store_type = $ei_integrator::params::security_trust_store_type,
-  $security_trust_store_password = $ei_integrator::params::security_trust_store_password,
+  $security_trust_store_location = $ei_analytics::params::security_trust_store_location,
+  $security_trust_store_type = $ei_analytics::params::security_trust_store_type,
+  $security_trust_store_password = $ei_analytics::params::security_trust_store_password,
 
   # axis2.xml
-  $transport_receiver_keystore_location = $ei_integrator::params::transport_receiver_keystore_location,
-  $transport_receiver_keystore_type = $ei_integrator::params::transport_receiver_keystore_type,
-  $transport_receiver_keystore_password = $ei_integrator::params::transport_receiver_keystore_password,
-  $transport_receiver_keystore_key_password = $ei_integrator::params::transport_receiver_keystore_key_password,
-
-  $transport_receiver_trust_store_location = $ei_integrator::params::transport_receiver_trust_store_location,
-  $transport_receiver_trust_store_type = $ei_integrator::params::transport_receiver_trust_store_type,
-  $transport_receiver_trust_store_password = $ei_integrator::params::transport_receiver_trust_store_password,
-
-  $transport_sender_keystore_location = $ei_integrator::params::transport_sender_keystore_location,
-  $transport_sender_keystore_type = $ei_integrator::params::transport_sender_keystore_type,
-  $transport_sender_keystore_password = $ei_integrator::params::transport_sender_keystore_password,
-  $transport_sender_keystore_key_password = $ei_integrator::params::transport_sender_keystore_key_password,
-
-  $transport_sender_trust_store_location = $ei_integrator::params::transport_sender_trust_store_location,
-  $transport_sender_trust_store_type = $ei_integrator::params::transport_sender_trust_store_type,
-  $transport_sender_trust_store_password = $ei_integrator::params::transport_sender_trust_store_password,
-
-  $clustering_enabled = $ei_integrator::params::clustering_enabled,
-  $clustering_membership_scheme = $ei_integrator::params::clustering_membership_scheme,
-  $clustering_wka_members = $ei_integrator::params::clustering_wka_members,
+  $clustering_enabled = $ei_analytics::params::clustering_enabled,
+  $clustering_membership_scheme = $ei_analytics::params::clustering_membership_scheme,
+  $clustering_wka_members = $ei_analytics::params::clustering_wka_members,
 
   # user-mgt.xml
-  $admin_username = $ei_integrator::params::admin_username,
-  $admin_password = $ei_integrator::params::admin_password,
+  $admin_username = $ei_analytics::params::admin_username,
+  $admin_password = $ei_analytics::params::admin_password,
 )
 
-  inherits ei_integrator::params {
+  inherits ei_analytics::params {
 
   if $::osfamily == 'redhat' {
     $ei_package = 'wso2ei-linux-installer-x64-6.3.0.rpm'
@@ -119,7 +106,6 @@ class ei_integrator (
     mode   => '0644',
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
-
 
   # Install WSO2 Enterprise Integrator
   package { $product:
@@ -169,7 +155,7 @@ class ei_integrator (
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> ei_integrator -> files
+    Note: Ensure that file is available in modules -> ei_analytics -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,
