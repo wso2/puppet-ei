@@ -52,6 +52,12 @@ class ei_bps::params {
   $security_keystore_key_alias = 'wso2carbon'
   $security_keystore_key_password = 'wso2carbon'
 
+  $security_internal_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
+  $security_internal_keystore_type = 'JKS'
+  $security_internal_keystore_password = 'wso2carbon'
+  $security_internal_keystore_key_alias = 'wso2carbon'
+  $security_internal_keystore_key_password = 'wso2carbon'
+
   $security_trust_store_location = '${carbon.home}/repository/resources/security/client-truststore.jks'
   $security_trust_store_type = 'JKS'
   $security_trust_store_password = 'wso2carbon'

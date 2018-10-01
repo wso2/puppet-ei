@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 
 # Class: ei_analytics_worker
-# Init class of API Manager Analytics - Worker profile
+# Init class of Enterprise Integrator Analytics - Worker profile
 class ei_analytics_worker inherits ei_analytics_worker::params {
 
   if $::osfamily == 'redhat' {
@@ -59,7 +59,7 @@ class ei_analytics_worker inherits ei_analytics_worker::params {
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
-  # Install WSO2 API Manager
+  # Install WSO2 Enterprise Integrator
   package { $product:
     ensure   => installed,
     provider => $installer_provider,
@@ -107,7 +107,7 @@ class ei_analytics_worker inherits ei_analytics_worker::params {
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> apim -> files
+    Note: Ensure that file is available in modules -> ei_analytics_worker -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,

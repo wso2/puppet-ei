@@ -71,7 +71,7 @@ databridge.config:
         sslPort: '9711'
         tcpReceiverThreadPoolSize: '100'
         sslReceiverThreadPoolSize: '100'
-        hostName: 0.0.0.0
+        hostName: <%= @binary_data_receiver_hostname %>
 
   # Configuration of the Data Agents - to publish events through databridge
 data.agent.config:
@@ -90,9 +90,9 @@ data.agent.config:
         # Data publisher strategy
       publishingStrategy: async
         # Trust store path
-      trustStorePath: '${sys:carbon.home}/resources/security/client-truststore.jks'
+      trustStorePath: '<%= @thrift_agent_trust_store %>'
         # Trust store password
-      trustStorePassword: 'wso2carbon'
+      trustStorePassword: '<%= @thrift_agent_trust_store_password %>'
         # Queue Size
       queueSize: 32768
         # Batch Size
@@ -356,10 +356,10 @@ wso2.datasources:
     definition:
       type: RDBMS
       configuration:
-        jdbcUrl: 'jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/MESSAGE_TRACING_DB;AUTO_SERVER=TRUE'
-        username: wso2carbon
-        password: wso2carbon
-        driverClassName: org.h2.Driver
+        jdbcUrl: '<%= @message_tracing_db_url %>'
+        username: <%= @message_tracing_db_username %>
+        password: <%= @message_tracing_db_password %>
+        driverClassName: <%= @message_tracing_db_driver %>
         maxPoolSize: 30
         idleTimeout: 60000
         connectionTestQuery: SELECT 1
