@@ -18,7 +18,7 @@
   -->
 
 <axisconfig name="AxisJava2.0">
-
+    
     <!-- ================================================= -->
     <!--                  Parameters                       -->
     <!-- ================================================= -->
@@ -62,13 +62,13 @@
     <parameter name="ModulesDirectory">axis2modules</parameter>
 
     <!-- User agent and the server details to be used in the http communication -->
-    <parameter name="userAgent" locked="true">WSO2 EI 6.3.0</parameter>
-    <parameter name="server" locked="true">WSO2 EI 6.3.0</parameter>
+    <parameter name="userAgent" locked="true">WSO2 EI 6.4.0</parameter>
+    <parameter name="server" locked="true">WSO2 EI 6.4.0</parameter>
 
     <!-- During a fault, stacktrace can be sent with the fault message. The following flag -->
     <!-- will control that behaviour -->
     <parameter name="sendStacktraceDetailsWithFaults" locked="false">false</parameter>
-
+    
     <!-- If there aren't any information available to find out the fault reason, we set the -->
     <!-- message of the exception as the faultreason/Reason. But when a fault is thrown from -->
     <!-- a service or some where, it will be wrapped by different levels. Due to this the -->
@@ -361,7 +361,7 @@
     <!--Uncomment this for FIX transport support
     <transportReceiver name="fix" class="org.apache.synapse.transport.fix.FIXTransportListener"/>
     -->
-
+    
     <!--transportReceiver name="hl7" class="org.wso2.carbon.business.messaging.hl7.transport.HL7TransportListener"/-->
 
     <!-- SAP Transport Listeners -->
@@ -448,7 +448,7 @@
     <!--Uncomment this for FIX transport support
     <transportSender name="fix" class="org.apache.synapse.transport.fix.FIXTransportSender"/>
     -->
-
+    
     <!--transportSender name="hl7" class="org.wso2.carbon.business.messaging.hl7.transport.HL7TransportSender"/-->
 
     <!-- SAP Transport Senders -->
@@ -459,12 +459,12 @@
     <transportSender name="rabbitmq" class="org.apache.axis2.transport.rabbitmq.RabbitMQSender"/-->
 
     <!--<transportSender name="mqtt" class="org.apache.axis2.transport.mqtt.MqttSender"/>-->
-
+    
     <!--<transportSender name="ws" class="org.wso2.carbon.websocket.transport.WebsocketTransportSender">
         <parameter name="ws.outflow.dispatch.sequence" locked="false">outflowDispatchSeq</parameter>
-        <parameter name="ws.outflow.dispatch.fault.sequence" locked="false">outflowFaultSeq</parameter>
+        <parameter name="ws.outflow.dispatch.fault.sequence" locked="false">outflowFaultSeq</parameter>       
     </transportSender>-->
-
+    
     <!--<transportSender name="wss" class="org.wso2.carbon.websocket.transport.WebsocketTransportSender">
         <parameter name="ws.outflow.dispatch.sequence" locked="false">outflowDispatchSeq</parameter>
         <parameter name="ws.outflow.dispatch.fault.sequence" locked="false">outflowFaultSeq</parameter>
@@ -620,7 +620,7 @@
     <!-- ================================================= -->
 
     <!--
-        Uncomment and configure the following section to enable transactions support
+        Uncomment and configure the following section to enable transactions support 
     -->
     <!--<transaction timeout="30000">
         <parameter name="java.naming.factory.initial">org.apache.activemq.jndi.ActiveMQInitialContextFactory</parameter>
