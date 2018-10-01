@@ -16,10 +16,7 @@
 
 # Class ei_bps::startserver
 # Starts the server as a service in the final stage.
-class ei_bps::startserver (
-  $service_name = $ei_bps::params::service_name
-)
-  inherits ei_bps::params {
+class ei_bps::startserver inherits ei_bps::params {
 
   service { $service_name:
     ensure => running,

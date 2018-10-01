@@ -16,75 +16,15 @@
 
 # Class: ei_integrator
 # Init class of EI Integrator default profile
-class ei_integrator (
-  $user = $ei_integrator::params::user,
-  $user_id = $ei_integrator::params::user_id,
-  $user_group = $ei_integrator::params::user_group,
-  $user_group_id = $ei_integrator::params::user_group_id,
-  $product = $ei_integrator::params::product,
-  $product_version = $ei_integrator::params::product_version,
-  $profile = $ei_integrator::params::profile,
-  $service_name = $ei_integrator::params::service_name,
-  $template_list = $ei_integrator::params::template_list,
-  $jre_version = $ei_integrator::params::jre_version,
-  $start_script_template = $ei_integrator::params::start_script_template,
-
-  # ------ Configuration Params ------ #
-
-  # master-datasources.xml
-  $carbon_db_url = $ei_integrator::params::carbon_db_url,
-  $carbon_db_username = $ei_integrator::params::carbon_db_username,
-  $carbon_db_password = $ei_integrator::params::carbon_db_password,
-  $carbon_db_driver = $ei_integrator::params::carbon_db_driver,
-
-  # carbon.xml
-  $security_keystore_location = $ei_integrator::params::security_keystore_location,
-  $security_keystore_type = $ei_integrator::params::security_keystore_type,
-  $security_keystore_password = $ei_integrator::params::security_keystore_password,
-  $security_keystore_key_alias = $ei_integrator::params::security_keystore_key_alias,
-  $security_keystore_key_password = $ei_integrator::params::security_keystore_key_password,
-
-  $security_trust_store_location = $ei_integrator::params::security_trust_store_location,
-  $security_trust_store_type = $ei_integrator::params::security_trust_store_type,
-  $security_trust_store_password = $ei_integrator::params::security_trust_store_password,
-
-  # axis2.xml
-  $transport_receiver_keystore_location = $ei_integrator::params::transport_receiver_keystore_location,
-  $transport_receiver_keystore_type = $ei_integrator::params::transport_receiver_keystore_type,
-  $transport_receiver_keystore_password = $ei_integrator::params::transport_receiver_keystore_password,
-  $transport_receiver_keystore_key_password = $ei_integrator::params::transport_receiver_keystore_key_password,
-
-  $transport_receiver_trust_store_location = $ei_integrator::params::transport_receiver_trust_store_location,
-  $transport_receiver_trust_store_type = $ei_integrator::params::transport_receiver_trust_store_type,
-  $transport_receiver_trust_store_password = $ei_integrator::params::transport_receiver_trust_store_password,
-
-  $transport_sender_keystore_location = $ei_integrator::params::transport_sender_keystore_location,
-  $transport_sender_keystore_type = $ei_integrator::params::transport_sender_keystore_type,
-  $transport_sender_keystore_password = $ei_integrator::params::transport_sender_keystore_password,
-  $transport_sender_keystore_key_password = $ei_integrator::params::transport_sender_keystore_key_password,
-
-  $transport_sender_trust_store_location = $ei_integrator::params::transport_sender_trust_store_location,
-  $transport_sender_trust_store_type = $ei_integrator::params::transport_sender_trust_store_type,
-  $transport_sender_trust_store_password = $ei_integrator::params::transport_sender_trust_store_password,
-
-  $clustering_enabled = $ei_integrator::params::clustering_enabled,
-  $clustering_membership_scheme = $ei_integrator::params::clustering_membership_scheme,
-  $clustering_wka_members = $ei_integrator::params::clustering_wka_members,
-
-  # user-mgt.xml
-  $admin_username = $ei_integrator::params::admin_username,
-  $admin_password = $ei_integrator::params::admin_password,
-)
-
-  inherits ei_integrator::params {
+class ei_integrator inherits ei_integrator::params {
 
   if $::osfamily == 'redhat' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.rpm'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.rpm"
     $installer_provider = 'rpm'
     $install_path = "/usr/lib64/wso2/${product}/${product_version}"
   }
   elsif $::osfamily == 'debian' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.deb'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.deb"
     $installer_provider = 'dpkg'
     $install_path = "/usr/lib/wso2/${product}/${product_version}"
   }

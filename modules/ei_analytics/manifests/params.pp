@@ -23,12 +23,12 @@ class ei_analytics::params {
   $user_home = '/home/$user'
   $user_group_id = 802
   $product = 'wso2ei'
-  $product_version = '6.3.0'
+  $product_version = '6.4.0'
   $profile = 'analytics'
   $hostname = 'localhost'
   $service_name = "${product}-${profile}"
   $mgt_hostname = 'localhost'
-  $jre_version = 'jre1.8.0_172'
+  $jdk_version = 'jdk1.8.0_192'
 
   # Define the template
   $start_script_template = "wso2/analytics/bin/wso2server.sh"

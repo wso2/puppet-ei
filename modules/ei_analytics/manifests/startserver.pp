@@ -16,10 +16,7 @@
 
 # Class ei_analytics::startserver
 # Starts the server as a service in the final stage.
-class ei_analytics::startserver (
-  $service_name = $ei_analytics::params::service_name
-)
-  inherits ei_analytics::params {
+class ei_analytics::startserver inherits ei_analytics::params {
 
   service { $service_name:
     ensure => running,

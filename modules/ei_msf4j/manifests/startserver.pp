@@ -16,10 +16,7 @@
 
 # Class ei_msf4j::startserver
 # Starts the server as a service in the final stage.
-class ei_msf4j::startserver (
-  $service_name = $ei_msf4j::params::service_name
-)
-  inherits ei_msf4j::params {
+class ei_msf4j::startserver inherits ei_msf4j::params {
 
   service { $service_name:
     ensure => running,
