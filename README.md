@@ -1,9 +1,9 @@
-# WSO2 Enterprise Integrator 6.3.0 Puppet 5 Modules
+# WSO2 Enterprise Integrator 6.4.0 Puppet 5 Modules
 
 This repository contains puppet modules for each profile relates to Enterprise Integrator.
 
 ## Quick Start Guide
-1. Download and copy the `wso2ei-linux-installer-x64-6.3.0.deb` or/and `wso2ei-linux-installer-x64-6.3.0.rpm` to the files directories in `/etc/puppet/code/environments/dev/modules/__profile__/files` in the Puppetmaster. <br>
+1. Download and copy the `wso2ei-linux-installer-x64-6.4.0.deb` or/and `wso2ei-linux-installer-x64-6.4.0.rpm` to the files directories in `/etc/puppet/code/environments/dev/modules/__profile__/files` in the Puppetmaster. <br>
 Profile refers to each profile in Enterprise Integrator. <br>
 eg: `/etc/puppet/code/environments/dev/modules/ei_integrator/files` <br>
 Dev refers to the sample environment that you can try these modules.

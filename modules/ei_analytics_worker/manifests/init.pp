@@ -14,9 +14,9 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class: ei_analytics
-# Init class of EI Integrator - Analytics profile
-class ei_analytics inherits ei_analytics::params {
+# Class: ei_analytics_worker
+# Init class of API Manager Analytics - Worker profile
+class ei_analytics_worker inherits ei_analytics_worker::params {
 
   if $::osfamily == 'redhat' {
     $ei_package = "wso2ei-linux-installer-x64-${product_version}.rpm"
@@ -44,7 +44,6 @@ class ei_analytics inherits ei_analytics::params {
     home   => "/home/${user}",
     system => true,
   }
-
   # Ensure the installation directory is available
   file { "/opt/${product}":
     ensure => 'directory',
@@ -60,7 +59,7 @@ class ei_analytics inherits ei_analytics::params {
     source => "puppet:///modules/${module_name}/${ei_package}",
   }
 
-  # Install WSO2 Enterprise Integrator
+  # Install WSO2 API Manager
   package { $product:
     ensure   => installed,
     provider => $installer_provider,
@@ -108,7 +107,7 @@ class ei_analytics inherits ei_analytics::params {
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> ei_analytics -> files
+    Note: Ensure that file is available in modules -> apim -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,
