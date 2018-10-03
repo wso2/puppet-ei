@@ -19,14 +19,16 @@
 class ei_msf4j inherits ei_msf4j::params {
 
   if $::osfamily == 'redhat' {
-    $ei_package = "wso2ei-linux-installer-x64-${product_version}.rpm"
-    $installer_provider = 'rpm'
+    $product_package = "${product}-linux-installer-x64-${product_version}.rpm"
+    $installer_provider = 'yum'
     $install_path = "/usr/lib64/wso2/${product}/${product_version}"
+    $package_name = "${product}-${product_version}"
   }
   elsif $::osfamily == 'debian' {
-    $ei_package = "wso2ei-linux-installer-x64-${product_version}.deb"
-    $installer_provider = 'dpkg'
+    $product_package = "${product}-linux-installer-x64-${product_version}.deb"
+    $installer_provider = 'apt'
     $install_path = "/usr/lib/wso2/${product}/${product_version}"
+    $package_name = "/opt/${product}/${product_package}"
   }
 
   # Create wso2 group
@@ -53,18 +55,18 @@ class ei_msf4j inherits ei_msf4j::params {
   }
 
   # Copy the installer to the directory
-  file { "/opt/${product}/${ei_package}":
+  file { "/opt/${product}/${product_package}":
     owner  => $user,
     group  => $user_group,
     mode   => '0644',
-    source => "puppet:///modules/${module_name}/${ei_package}",
+    source => "puppet:///modules/${module_name}/${product_package}",
   }
 
   # Install WSO2 Enterprise Integrator
-  package { $product:
+  package { $package_name:
     ensure   => installed,
     provider => $installer_provider,
-    source   => "/opt/${product}/${ei_package}"
+    source  => "/opt/${product}/${product_package}"
   }
 
   # Change the ownership of the installation directory to wso2 user & group
