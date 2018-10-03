@@ -16,10 +16,7 @@
 
 # Class ei_broker::startserver
 # Starts the server as a service in the final stage.
-class ei_broker::startserver (
-  $service_name = $ei_broker::params::service_name
-)
-  inherits ei_broker::params {
+class ei_broker::startserver inherits ei_broker::params {
 
   service { $service_name:
     ensure => running,

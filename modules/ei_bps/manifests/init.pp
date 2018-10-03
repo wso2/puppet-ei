@@ -16,51 +16,15 @@
 
 # Class: ei_bps
 # Init class of EI Integrator - Business Process profile
-class ei_bps (
-  $user = $ei_bps::params::user,
-  $user_id = $ei_bps::params::user_id,
-  $user_group = $ei_bps::params::user_group,
-  $user_group_id = $ei_bps::params::user_group_id,
-  $product = $ei_bps::params::product,
-  $product_version = $ei_bps::params::product_version,
-  $profile = $ei_bps::params::profile,
-  $service_name = $ei_bps::params::service_name,
-  $template_list = $ei_bps::params::template_list,
-  $jre_version = $ei_bps::params::jre_version,
-  $start_script_template = $ei_bps::params::start_script_template,
-
-  # ------ Configuration Params ------ #
-
-  # carbon.xml
-  $security_keystore_location = $ei_bps::params::security_keystore_location,
-  $security_keystore_type = $ei_bps::params::security_keystore_type,
-  $security_keystore_password = $ei_bps::params::security_keystore_password,
-  $security_keystore_key_alias = $ei_bps::params::security_keystore_key_alias,
-  $security_keystore_key_password = $ei_bps::params::security_keystore_key_password,
-
-  $security_trust_store_location = $ei_bps::params::security_trust_store_location,
-  $security_trust_store_type = $ei_bps::params::security_trust_store_type,
-  $security_trust_store_password = $ei_bps::params::security_trust_store_password,
-
-  # axis2.xml
-  $clustering_enabled = $ei_bps::params::clustering_enabled,
-  $clustering_membership_scheme = $ei_bps::params::clustering_membership_scheme,
-  $clustering_wka_members = $ei_bps::params::clustering_wka_members,
-
-  # user-mgt.xml
-  $admin_username = $ei_bps::params::admin_username,
-  $admin_password = $ei_bps::params::admin_password,
-)
-
-  inherits ei_bps::params {
+class ei_bps inherits ei_bps::params {
 
   if $::osfamily == 'redhat' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.rpm'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.rpm"
     $installer_provider = 'rpm'
     $install_path = "/usr/lib64/wso2/${product}/${product_version}"
   }
   elsif $::osfamily == 'debian' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.deb'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.deb"
     $installer_provider = 'dpkg'
     $install_path = "/usr/lib/wso2/${product}/${product_version}"
   }

@@ -16,10 +16,7 @@
 
 # Class ei_integrator::startserver
 # Starts the server as a service in the final stage.
-class ei_integrator::startserver (
-  $service_name = $ei_integrator::params::service_name
-)
-  inherits ei_integrator::params {
+class ei_integrator::startserver inherits ei_integrator::params {
 
   service { $service_name:
     ensure => running,

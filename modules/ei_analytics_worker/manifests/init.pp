@@ -14,64 +14,17 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class: ei_analytics
-# Init class of EI Integrator - Analytics profile
-class ei_analytics (
-  $user = $ei_analytics::params::user,
-  $user_id = $ei_analytics::params::user_id,
-  $user_group = $ei_analytics::params::user_group,
-  $user_group_id = $ei_analytics::params::user_group_id,
-  $product = $ei_analytics::params::product,
-  $product_version = $ei_analytics::params::product_version,
-  $profile = $ei_analytics::params::profile,
-  $service_name = $ei_analytics::params::service_name,
-  $template_list = $ei_analytics::params::template_list,
-  $jre_version = $ei_analytics::params::jre_version,
-  $start_script_template = $ei_analytics::params::start_script_template,
-
-  # ------ Configuration Params ------ #
-
-  # analytics-datasources.xml
-  $event_store_db_url = $ei_analytics::params::event_store_db_url,
-  $event_store_db_username = $ei_analytics::params::event_store_db_username,
-  $event_store_db_password = $ei_analytics::params::event_store_db_password,
-  $event_store_db_driver = $ei_analytics::params::event_store_db_driver,
-
-  $processed_data_store_db_url = $ei_analytics::params::processed_data_store_db_url,
-  $processed_data_store_db_username = $ei_analytics::params::processed_data_store_db_username,
-  $processed_data_store_db_password = $ei_analytics::params::processed_data_store_db_password,
-  $processed_data_store_db_driver = $ei_analytics::params::processed_data_store_db_driver,
-
-  # carbon.xml
-  $security_keystore_location = $ei_analytics::params::security_keystore_location,
-  $security_keystore_type = $ei_analytics::params::security_keystore_type,
-  $security_keystore_password = $ei_analytics::params::security_keystore_password,
-  $security_keystore_key_alias = $ei_analytics::params::security_keystore_key_alias,
-  $security_keystore_key_password = $ei_analytics::params::security_keystore_key_password,
-
-  $security_trust_store_location = $ei_analytics::params::security_trust_store_location,
-  $security_trust_store_type = $ei_analytics::params::security_trust_store_type,
-  $security_trust_store_password = $ei_analytics::params::security_trust_store_password,
-
-  # axis2.xml
-  $clustering_enabled = $ei_analytics::params::clustering_enabled,
-  $clustering_membership_scheme = $ei_analytics::params::clustering_membership_scheme,
-  $clustering_wka_members = $ei_analytics::params::clustering_wka_members,
-
-  # user-mgt.xml
-  $admin_username = $ei_analytics::params::admin_username,
-  $admin_password = $ei_analytics::params::admin_password,
-)
-
-  inherits ei_analytics::params {
+# Class: ei_analytics_worker
+# Init class of Enterprise Integrator Analytics - Worker profile
+class ei_analytics_worker inherits ei_analytics_worker::params {
 
   if $::osfamily == 'redhat' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.rpm'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.rpm"
     $installer_provider = 'rpm'
     $install_path = "/usr/lib64/wso2/${product}/${product_version}"
   }
   elsif $::osfamily == 'debian' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.deb'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.deb"
     $installer_provider = 'dpkg'
     $install_path = "/usr/lib/wso2/${product}/${product_version}"
   }
@@ -91,7 +44,6 @@ class ei_analytics (
     home   => "/home/${user}",
     system => true,
   }
-
   # Ensure the installation directory is available
   file { "/opt/${product}":
     ensure => 'directory',
@@ -155,7 +107,7 @@ class ei_analytics (
   /*
     Following script can be used to copy file to a given location.
     This will copy some_file to install_path -> repository.
-    Note: Ensure that file is available in modules -> ei_analytics -> files
+    Note: Ensure that file is available in modules -> ei_analytics_worker -> files
   */
   # file { "${install_path}/repository/some_file":
   #   owner  => $user,

@@ -14,8 +14,8 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class: ei_analytics::custom
+# Class: ei_analytics_dashboard::custom
 # This class is reserved to run custom user code before starting the server.
-class ei_analytics::custom {
+class ei_analytics_dashboard::custom {
   # resources
 }

@@ -23,10 +23,10 @@ class ei_msf4j::params {
   $user_home = '/home/$user'
   $user_group_id = 802
   $product = 'wso2ei'
-  $product_version = '6.3.0'
+  $product_version = '6.4.0'
   $profile = 'msf4j'
   $service_name = "${product}-${profile}"
-  $jre_version = 'jre1.8.0_172'
+  $jdk_version = 'jdk1.8.0_192'
 
   # Define the template
   $start_script_template = "wso2/msf4j/bin/carbon.sh"

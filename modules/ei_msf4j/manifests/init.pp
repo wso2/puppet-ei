@@ -16,41 +16,15 @@
 
 # Class: ei_msf4j
 # Init class of EI Integrator - MSF4J profile
-class ei_msf4j (
-  $user = $ei_msf4j::params::user,
-  $user_id = $ei_msf4j::params::user_id,
-  $user_group = $ei_msf4j::params::user_group,
-  $user_group_id = $ei_msf4j::params::user_group_id,
-  $product = $ei_msf4j::params::product,
-  $product_version = $ei_msf4j::params::product_version,
-  $profile = $ei_msf4j::params::profile,
-  $service_name = $ei_msf4j::params::service_name,
-  $template_list = $ei_msf4j::params::template_list,
-  $jre_version = $ei_msf4j::params::jre_version,
-  $start_script_template = $ei_msf4j::params::start_script_template,
-
-  # ------ Configuration Params ------ #
-
-  # netty-transports.yaml
-  $host = $ei_msf4j::params::host,
-
-  # data-agent-config.xml
-  $thrift_agent_trust_store = $ei_msf4j::params::thrift_agent_trust_store,
-  $thrift_agent_trust_store_password = $ei_msf4j::params::thrift_agent_trust_store_password,
-
-  $binary_agent_trust_store = $ei_msf4j::params::binary_agent_trust_store,
-  $binary_agent_trust_store_password = $ei_msf4j::params::binary_agent_trust_store_password,
-)
-
-  inherits ei_msf4j::params {
+class ei_msf4j inherits ei_msf4j::params {
 
   if $::osfamily == 'redhat' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.rpm'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.rpm"
     $installer_provider = 'rpm'
     $install_path = "/usr/lib64/wso2/${product}/${product_version}"
   }
   elsif $::osfamily == 'debian' {
-    $ei_package = 'wso2ei-linux-installer-x64-6.3.0.deb'
+    $ei_package = "wso2ei-linux-installer-x64-${product_version}.deb"
     $installer_provider = 'dpkg'
     $install_path = "/usr/lib/wso2/${product}/${product_version}"
   }
