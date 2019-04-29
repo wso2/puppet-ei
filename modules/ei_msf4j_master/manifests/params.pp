@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-#  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
+#  Copyright (c) 2019 WSO2, Inc. http://www.wso2.org
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,33 +14,37 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Claas ei_msf4j::params
+# Claas ei_msf4j_master::params
 # This class includes all the necessary parameters.
-class ei_msf4j::params {
+class ei_msf4j_master::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
   $product_version = '6.4.0'
   $profile = 'msf4j'
-  $service_name = "${product}-${profile}"
-
-  # JDK Distributions
-  if $::osfamily == 'redhat' {
-    $lib_dir = "/usr/lib64/wso2"
-  }
-  elsif $::osfamily == 'debian' {
-    $lib_dir = "/usr/lib/wso2"
-  }
-  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
-  $java_home = "${lib_dir}/${jdk_name}"
 
   # Define the template
-  $start_script_template = "wso2/msf4j/bin/carbon.sh"
+  $template_list = [
+    'wso2/msf4j/conf/transports/netty-transports.yml',
+    'wso2/msf4j/conf/data-bridge/data-agent-config.xml',
+  ]
+
+  # ------ Configuration Params ------ #
+
+  # netty-transports.yaml
+  $host = '0.0.0.0'
+
+  # data-agent-config.xml
+  $thrift_agent_trust_store = 'conf/data-bridge/client-truststore.jks'
+  $thrift_agent_trust_store_password = 'wso2carbon'
+
+  $binary_agent_trust_store = 'conf/data-bridge/client-truststore.jks'
+  $binary_agent_trust_store_password = 'wso2carbon'
 
   # Directories
   $products_dir = "/usr/local/wso2"
 
-  # Product and installation information
+  # Product and installation paths
   $product_binary = "${product}-${product_version}.zip"
   $distribution_path = "${products_dir}/${product}/${profile}/${product_version}"
   $install_path = "${distribution_path}/${product}-${product_version}"
