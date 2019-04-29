@@ -18,5 +18,5 @@
 # Starts the server as a service in the final stage.
 class ei_bps_master::startserver inherits ei_bps_master::params {
 
-  # This class should be used to control Identity Server if required.
+  # This class should be used to control Enterprise Integrator if required.
 }

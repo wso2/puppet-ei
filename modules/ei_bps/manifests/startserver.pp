@@ -25,8 +25,8 @@ class ei_bps::startserver inherits ei_bps::params {
 
   # Start the service
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable    => true,
+    ensure    => running,
     subscribe => File["binary"],
   }
 }

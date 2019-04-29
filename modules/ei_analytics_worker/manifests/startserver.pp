@@ -25,8 +25,8 @@ class ei_analytics_worker::startserver inherits ei_analytics_worker::params {
 
   # Start the service
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable    => true,
+    ensure    => running,
     subscribe => File["binary"],
   }
 }
