@@ -18,58 +18,30 @@
 # This class includes all the necessary parameters.
 class ei_bps::params {
   $user = 'wso2carbon'
-  $user_id = 802
   $user_group = 'wso2'
-  $user_home = '/home/$user'
-  $user_group_id = 802
   $product = 'wso2ei'
   $product_version = '6.4.0'
   $profile = 'business-process'
-  $hostname = 'localhost'
   $service_name = "${product}-${profile}"
-  $mgt_hostname = 'localhost'
-  $jdk_version = 'jdk1.8.0_192'
+
+  # JDK Distributions
+  if $::osfamily == 'redhat' {
+    $lib_dir = "/usr/lib64/wso2"
+  }
+  elsif $::osfamily == 'debian' {
+    $lib_dir = "/usr/lib/wso2"
+  }
+  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
+  $java_home = "${lib_dir}/${jdk_name}"
 
   # Define the template
   $start_script_template = "wso2/business-process/bin/wso2server.sh"
-  $template_list = [
-    'wso2/business-process/conf/carbon.xml',
-    'wso2/business-process/conf/axis2/axis2.xml',
-    'wso2/business-process/conf/user-mgt.xml',
-    # 'wso2/business-process/conf/datasources/master-datasources.xml',
-    # 'wso2/business-process/conf/registry.xml',
-    # 'wso2/business-process/conf/identity/identity.xml',
-    # 'wso2/business-process/conf/security/authenticators.xml',
-    # 'wso2/business-process/conf/tomcat/catalina-server.xml',
-  ]
 
-  # ------ Configuration Params ------ #
+  # Directories
+  $products_dir = "/usr/local/wso2"
 
-  # carbon.xml
-  $security_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
-  $security_keystore_type = 'JKS'
-  $security_keystore_password = 'wso2carbon'
-  $security_keystore_key_alias = 'wso2carbon'
-  $security_keystore_key_password = 'wso2carbon'
-
-  $security_internal_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
-  $security_internal_keystore_type = 'JKS'
-  $security_internal_keystore_password = 'wso2carbon'
-  $security_internal_keystore_key_alias = 'wso2carbon'
-  $security_internal_keystore_key_password = 'wso2carbon'
-
-  $security_trust_store_location = '${carbon.home}/repository/resources/security/client-truststore.jks'
-  $security_trust_store_type = 'JKS'
-  $security_trust_store_password = 'wso2carbon'
-
-  # axis2.xml
-  $clustering_enabled = 'false'
-  $clustering_wka_members = [
-    { hostname => '127.0.0.1', port => '4000'},
-    # { hostname => '127.0.0.1', port => '4001'},
-  ]
-
-  # user-mgt.xml
-  $admin_username = 'admin'
-  $admin_password = 'admin'
+  # Product and installation information
+  $product_binary = "${product}-${product_version}.zip"
+  $distribution_path = "${products_dir}/${product}/${profile}/${product_version}"
+  $install_path = "${distribution_path}/${product}-${product_version}"
 }
