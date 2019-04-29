@@ -14,7 +14,7 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class ei_analytics_dashboard::startserver
+# Class ei_analytics_dashboard::startserverÒ
 # Starts the server as a service in the final stage.
 class ei_analytics_dashboard::startserver inherits ei_analytics_dashboard::params {
 
@@ -25,8 +25,8 @@ class ei_analytics_dashboard::startserver inherits ei_analytics_dashboard::param
 
   # Start the service
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable    => true,
+    ensure    => running,
     subscribe => File["binary"],
   }
 }

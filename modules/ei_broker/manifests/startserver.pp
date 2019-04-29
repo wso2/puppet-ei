@@ -25,8 +25,8 @@ class ei_broker::startserver inherits ei_broker::params {
 
   # Start the service
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable    => true,
+    ensure    => running,
     subscribe => File["binary"],
   }
 }

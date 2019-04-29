@@ -25,8 +25,8 @@ class ei_integrator::startserver inherits ei_integrator::params {
 
   # Start the service
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable    => true,
+    ensure    => running,
     subscribe => File["binary"],
   }
 }
