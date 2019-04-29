@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-#  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
+#  Copyright (c) 2019 WSO2, Inc. http://www.wso2.org
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,19 +14,9 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class ei_broker::startserver
+# Class ei_broker_master::startserver
 # Starts the server as a service in the final stage.
-class ei_broker::startserver inherits ei_broker::params {
+class ei_broker_master::startserver inherits ei_broker_master::params {
 
-  exec { 'daemon-reload':
-    command => "systemctl daemon-reload",
-    path    => "/bin/",
-  }
-
-  # Start the service
-  service { $service_name:
-    enable => true,
-    ensure => running,
-    subscribe => File["binary"],
-  }
+  # This class should be used to control Identity Server if required.
 }
