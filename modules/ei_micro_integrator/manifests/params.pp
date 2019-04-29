@@ -18,68 +18,30 @@
 # This class includes all the necessary parameters.
 class ei_micro_integrator::params {
   $user = 'wso2carbon'
-  $user_id = 802
   $user_group = 'wso2'
-  $user_home = '/home/$user'
-  $user_group_id = 802
   $product = 'wso2ei'
   $product_version = '6.4.0'
   $profile = 'micro-integrator'
-  $hostname = 'localhost'
   $service_name = "${product}-${profile}"
-  $mgt_hostname = 'localhost'
-  $jdk_version = 'jdk1.8.0_192'
+
+  # JDK Distributions
+  if $::osfamily == 'redhat' {
+    $lib_dir = "/usr/lib64/wso2"
+  }
+  elsif $::osfamily == 'debian' {
+    $lib_dir = "/usr/lib/wso2"
+  }
+  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
+  $java_home = "${lib_dir}/${jdk_name}"
 
   # Define the template
   $start_script_template = "wso2/micro-integrator/bin/wso2server.sh"
-  $template_list = [
-    'wso2/micro-integrator/conf/datasources/master-datasources.xml',
-    'wso2/micro-integrator/conf/carbon.xml',
-    'wso2/micro-integrator/conf/axis2/axis2.xml',
-    # 'wso2/micro-integrator/conf/tomcat/catalina-server.xml',
-  ]
 
-  # ------ Configuration Params ------ #
+  # Directories
+  $products_dir = "/usr/local/wso2"
 
-  # master-datasources.xml
-  $carbon_db_url = 'jdbc:h2:./repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
-  $carbon_db_username = 'wso2carbon'
-  $carbon_db_password = 'wso2carbon'
-  $carbon_db_driver = 'org.h2.Driver'
-
-  # carbon.xml
-  $security_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
-  $security_keystore_type = 'JKS'
-  $security_keystore_password = 'wso2carbon'
-  $security_keystore_key_alias = 'wso2carbon'
-  $security_keystore_key_password = 'wso2carbon'
-
-  $security_internal_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
-  $security_internal_keystore_type = 'JKS'
-  $security_internal_keystore_password = 'wso2carbon'
-  $security_internal_keystore_key_alias = 'wso2carbon'
-  $security_internal_keystore_key_password = 'wso2carbon'
-
-  $security_trust_store_location = '${carbon.home}/repository/resources/security/client-truststore.jks'
-  $security_trust_store_type = 'JKS'
-  $security_trust_store_password = 'wso2carbon'
-
-  # axis2.xml
-  $transport_receiver_keystore_location = 'repository/resources/security/wso2carbon.jks'
-  $transport_receiver_keystore_type = 'JKS'
-  $transport_receiver_keystore_password = 'wso2carbon'
-  $transport_receiver_keystore_key_password = 'wso2carbon'
-
-  $transport_receiver_trust_store_location = 'repository/resources/security/client-truststore.jks'
-  $transport_receiver_trust_store_type = 'JKS'
-  $transport_receiver_trust_store_password = 'wso2carbon'
-
-  $transport_sender_keystore_location = 'repository/resources/security/wso2carbon.jks'
-  $transport_sender_keystore_type = 'JKS'
-  $transport_sender_keystore_password = 'wso2carbon'
-  $transport_sender_keystore_key_password = 'wso2carbon'
-
-  $transport_sender_trust_store_location = 'repository/resources/security/client-truststore.jks'
-  $transport_sender_trust_store_type = 'JKS'
-  $transport_sender_trust_store_password = 'wso2carbon'
+  # Product and installation information
+  $product_binary = "${product}-${product_version}.zip"
+  $distribution_path = "${products_dir}/${product}/${profile}/${product_version}"
+  $install_path = "${distribution_path}/${product}-${product_version}"
 }

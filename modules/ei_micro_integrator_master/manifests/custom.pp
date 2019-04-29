@@ -14,19 +14,8 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-# Class ei_micro_integrator::startserver
-# Starts the server as a service in the final stage.
-class ei_micro_integrator::startserver inherits ei_micro_integrator::params {
-
-  exec { 'daemon-reload':
-    command => "systemctl daemon-reload",
-    path    => "/bin/",
-  }
-
-  # Start the service
-  service { $service_name:
-    enable => true,
-    ensure => running,
-    subscribe => File["binary"],
-  }
+# Class: ei_micro_integrator_master::custom
+# This class is reserved to run custom user code before starting the server.
+class ei_micro_integrator_master::custom {
+  # resources
 }
