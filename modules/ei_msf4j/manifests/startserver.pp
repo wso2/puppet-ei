@@ -25,8 +25,8 @@ class ei_msf4j::startserver inherits ei_msf4j::params {
 
   # Start the service
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable    => true,
+    ensure    => running,
     subscribe => File["binary"],
   }
 }
