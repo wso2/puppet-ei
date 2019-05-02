@@ -30,7 +30,7 @@ class ei_micro_integrator_master inherits ei_micro_integrator_master::params {
   file { "binary":
     path   => "${distribution_path}/${product_binary}",
     mode   => '0644',
-    source => "puppet:///modules/${module_name}/${product_binary}",
+    source => "puppet:///modules/distributions/${product_binary}",
   }
 
   # Install the "unzip" package
