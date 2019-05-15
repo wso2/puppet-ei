@@ -46,7 +46,7 @@ class ei_micro_integrator inherits ei_micro_integrator::params {
   # Copy JDK to Java distribution path
   file { "jdk-distribution":
     path   => "${java_home}.tar.gz",
-    source => "puppet:///modules/distributions/${jdk_name}.tar.gz",
+    source => "puppet:///modules/common/${jdk_name}.tar.gz",
   }
 
   # Unzip distribution
