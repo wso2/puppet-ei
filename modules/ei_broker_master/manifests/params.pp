@@ -16,7 +16,7 @@
 
 # Claas ei_broker_master::params
 # This class includes all the necessary parameters.
-class ei_broker_master::params {
+class ei_broker_master::params inherits common::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
@@ -52,17 +52,6 @@ class ei_broker_master::params {
   $mqtt_trust_store_password = 'wso2carbon'
   $mqtt_trust_store_cert_type = 'SunX509'
 
-  # master-datasources.xml
-  $carbon_db_url = 'jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
-  $carbon_db_username = 'wso2carbon'
-  $carbon_db_password = 'wso2carbon'
-  $carbon_db_driver = 'org.h2.Driver'
-
-  $mb_store_db_url = 'jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
-  $mb_store_db_username = 'wso2carbon'
-  $mb_store_db_password = 'wso2carbon'
-  $mb_store_db_driver = 'org.h2.Driver'
-
   # carbon.xml
   $security_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
   $security_keystore_type = 'JKS'
@@ -86,10 +75,6 @@ class ei_broker_master::params {
     { hostname => '127.0.0.1', port => '4000'},
     # { hostname => '127.0.0.1', port => '4001'},
   ]
-
-  # user-mgt.xml
-  $admin_username = 'admin'
-  $admin_password = 'admin'
 
   # Directories
   $products_dir = "/usr/local/wso2"

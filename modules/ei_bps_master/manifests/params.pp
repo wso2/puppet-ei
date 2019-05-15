@@ -16,7 +16,7 @@
 
 # Claas ei_bps_master::params
 # This class includes all the necessary parameters.
-class ei_bps_master::params {
+class ei_bps_master::params inherits common::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
@@ -56,10 +56,6 @@ class ei_bps_master::params {
     { hostname => '127.0.0.1', port => '4000'},
     # { hostname => '127.0.0.1', port => '4001'},
   ]
-
-  # user-mgt.xml
-  $admin_username = 'admin'
-  $admin_password = 'admin'
 
   # Directories
   $products_dir = "/usr/local/wso2"
