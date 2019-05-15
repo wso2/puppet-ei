@@ -16,7 +16,7 @@
 
 # Claas ei_msf4j_master::params
 # This class includes all the necessary parameters.
-class ei_msf4j_master::params {
+class ei_msf4j_master::params inherits common::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'

@@ -16,7 +16,7 @@
 
 # Claas ei_integrator_master::params
 # This class includes all the necessary parameters.
-class ei_integrator_master::params {
+class ei_integrator_master::params inherits common::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
@@ -32,12 +32,6 @@ class ei_integrator_master::params {
   ]
 
   # ------ Configuration Params ------ #
-
-  # master-datasources.xml
-  $carbon_db_url = 'jdbc:h2:./repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
-  $carbon_db_username = 'wso2carbon'
-  $carbon_db_password = 'wso2carbon'
-  $carbon_db_driver = 'org.h2.Driver'
 
   # carbon.xml
   $security_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
@@ -81,10 +75,6 @@ class ei_integrator_master::params {
   # ----- axis2.xml config params -----
   $clustering_enabled = 'false'
   $clustering_membership_scheme = 'multicast'
-
-  # user-mgt.xml
-  $admin_username = 'admin'
-  $admin_password = 'admin'
 
   # Directories
   $products_dir = "/usr/local/wso2"
