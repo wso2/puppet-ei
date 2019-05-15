@@ -59,9 +59,9 @@ class ei_broker::params {
   # }
   # elsif $deployment == "production" {
   #   $config_file_list = [
-  #     { "file" => "${install_path}/wso2/broker/conf/axis2/axis2.xml", "key" => "%local_ip%", "value" => "${local_ip}" },
-  #     { "file" => "${install_path}/wso2/broker/conf/carbon.xml", "key" => "%hostname%", "value" => "localhost" },
-  #     { "file" => "${install_path}/wso2/broker/conf/carbon.xml", "key" => "%mgt_hostname%", "value" => "localhost" },
+  #     { "file" => "${install_path}/wso2/broker/conf/axis2/axis2.xml", "key" => "LOCAL_IP", "value" => "${local_ip}" },
+  #     { "file" => "${install_path}/wso2/broker/conf/carbon.xml", "key" => "HOSTNAME", "value" => "localhost" },
+  #     { "file" => "${install_path}/wso2/broker/conf/carbon.xml", "key" => "MGT_HOSTNAME", "value" => "localhost" },
   #   ]
   # }
 }
