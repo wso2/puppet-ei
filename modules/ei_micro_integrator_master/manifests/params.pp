@@ -55,6 +55,9 @@ class ei_micro_integrator_master::params {
   $security_trust_store_type = 'JKS'
   $security_trust_store_password = 'wso2carbon'
 
+  $hostname = 'localhost'
+  $mgt_hostname = 'localhost'
+
   # axis2.xml
   $transport_receiver_keystore_location = 'repository/resources/security/wso2carbon.jks'
   $transport_receiver_keystore_type = 'JKS'
