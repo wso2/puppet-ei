@@ -23,6 +23,7 @@ class ei_bps::params {
   $product_version = '6.4.0'
   $profile = 'business-process'
   $service_name = "${product}-${profile}"
+  # $local_ip = $::ipaddress
 
   # JDK Distributions
   if $::osfamily == 'redhat' {
@@ -44,4 +45,23 @@ class ei_bps::params {
   $product_binary = "${product}-${product_version}.zip"
   $distribution_path = "${products_dir}/${product}/${profile}/${product_version}"
   $install_path = "${distribution_path}/${product}-${product_version}"
+
+  # List of files that must contain agent specific configuraitons
+  # if $deployment == "dev" {
+  #   $config_file_list = [
+  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
+  #   ]
+  # }
+  # elsif $deployment == "staging" {
+  #   $config_file_list = [
+  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
+  #   ]
+  # }
+  # elsif $deployment == "production" {
+  #   $config_file_list = [
+  #     { "file" => "${install_path}/wso2/business-process/conf/axis2/axis2.xml", "key" => "%local_ip%", "value" => "${local_ip}" },
+  #     { "file" => "${install_path}/wso2/business-process/conf/carbon.xml", "key" => "%hostname%", "value" => "localhost" },
+  #     { "file" => "${install_path}/wso2/business-process/conf/carbon.xml", "key" => "%mgt_hostname%", "value" => "localhost" },
+  #   ]
+  # }
 }

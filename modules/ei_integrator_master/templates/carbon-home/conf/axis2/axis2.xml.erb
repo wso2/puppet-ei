@@ -547,7 +547,7 @@
         -->
         <!-- The host name or IP address of this member -->
 
-        <parameter name="localMemberHost">127.0.0.1</parameter>
+        <parameter name="localMemberHost">%local_ip%</parameter>
 
         <!--
             The bind adress of this member. The difference between localMemberHost & localMemberBindAddress
@@ -593,12 +593,10 @@
            "membershipScheme" above is set to "wka"
         -->
         <members>
-            <%- @clustering_wka_members.each do |member| -%>
             <member>
-                <hostName><%= member['hostname'] %></hostName>
-                <port><%= member['port'] %></port>
+                <hostName>127.0.0.1</hostName>
+                <port>4000</port>
             </member>
-            <%- end -%>
         </members>
 
         <!--
