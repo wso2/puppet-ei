@@ -75,6 +75,9 @@ class ei_integrator_master::params {
   $transport_sender_trust_store_type = 'JKS'
   $transport_sender_trust_store_password = 'wso2carbon'
 
+  $hostname = 'localhost'
+  $mgt_hostname = 'localhost'
+
   # ----- axis2.xml config params -----
   $clustering_enabled = 'false'
   $clustering_membership_scheme = 'multicast'
