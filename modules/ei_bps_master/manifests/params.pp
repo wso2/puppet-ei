@@ -22,7 +22,6 @@ class ei_bps_master::params inherits common::params {
   $product = 'wso2ei'
   $product_version = '6.4.0'
   $profile = 'business-process'
-  $hostname = 'localhost'
 
   # Define the template
   $template_list = [

@@ -88,9 +88,9 @@ class ei_analytics_worker inherits ei_analytics_worker::params {
 
   # Stop the existing setup
   exec { "stop-server":
-    command     => "kill -term $(cat ${install_path}/wso2/${profile}/runtime.pid)",
+    command     => "kill -term $(cat ${install_path}/wso2/analytics/wso2/worker/runtime.pid)",
     path        => "/bin/",
-    onlyif      => "/usr/bin/test -f ${install_path}/wso2/${profile}/runtime.pid",
+    onlyif      => "/usr/bin/test -f ${install_path}/wso2/analytics/wso2/worker/runtime.pid",
     subscribe   => File["binary"],
     refreshonly => true,
   }
