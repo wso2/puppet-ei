@@ -1,132 +1,68 @@
-# WSO2 Enterprise Integrator 6.4.0 Puppet 5 Modules
+# Puppet Modules for WSO2 Enterprise Integrator
 
-This repository contains puppet modules for each profile relates to Enterprise Integrator.
+This repository contains the Puppet modules for WSO2 Enterprise Integrator and the profiles related to Enterprise Integrator Analytics.
 
 ## Quick Start Guide
-1. Download and copy the `wso2ei-linux-installer-x64-6.4.0.deb` or/and `wso2ei-linux-installer-x64-6.4.0.rpm` to the files directories in `/etc/puppet/code/environments/dev/modules/__profile__/files` in the Puppetmaster. <br>
-Profile refers to each profile in Enterprise Integrator. <br>
-eg: `/etc/puppet/code/environments/dev/modules/ei_integrator/files` <br>
-Dev refers to the sample environment that you can try these modules.
+1. Download wso2ei-6.4.0.zip to the `<puppet_environment>/modules/common/files` directory in the **Puppetmaster**.
 
-2. Run necessary profile on puppet agent. More details on this are available in the following section.
+2. Set up the JDK distribution as follows:
 
-## Running Enterprise Integrator Profiles in Puppet Agent
-This section describes how to run each profile in a puppet agent.
+   The Puppet modules for WSO2 products use Amazon Coretto as the JDK distribution. However, you can use any [supported JDK distribution](https://docs.wso2.com/display/compatibility/Tested+Operating+Systems+and+JDKs).
+   1. Download Amazon Coretto for Linux x64 from [here](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html) and copy .tar into the `<puppet_environment>/modules/common/files` directory.
+   2. Reassign the *$jdk_name* variable in `<puppet_environment>/modules/<agent_module>/manifests/params.pp` to the name of the downloaded JDK distribution.
+3. Identify the absolute path of the Puppet environment in the build script by renaming the *puppet_env* variable in `<puppet_environment>/modules/<master_module>/build.sh`.
+4. Execute the build script.
 
-### Integrator profile
-```bash
-export FACTER_profile=ei_integrator
-puppet agent -vt
-```
+    ```bash
+    ./build.sh
+    ```
+5. Run the relevant profile on the **Puppet agent**.
+    1. Integrator profile:
+        ```bash
+        export FACTER_profile=ei_integrator
+        puppet agent -vt
+        ```
+    2. Business Process profile:
+        ```bash
+        export FACTER_profile=ei_bps
+        puppet agent -vt
+        ```
+    3. Broker profile:
+        ```bash
+        export FACTER_profile=ei_broker
+        puppet agent -vt
+        ```
+    4. Micro Integrator profile:
+        ```bash
+        export FACTER_profile=ei_micro_integrator
+        puppet agent -vt
+        ```
+    5. msf4j profile:
+        ```bash
+        export FACTER_profile=ei_msf4j
+        puppet agent -vt
+        ```
+    6. Analytics profile:
+        1. Dashboard:
+            ```bash
+            export FACTER_profile=ei_analytics_dashboard
+            puppet agent -vt
+            ```
+        2. Worker:
+            ```bash
+            export FACTER_profile=ei_analytics_worker
+            puppet agent -vt
+            ```
 
-### Broker profile
-```bash
-export FACTER_profile=ei_broker
-puppet agent -vt
-```
+## Manifests in a module
+The run stages for Puppet are described in `<puppet_environment>/manifests/site.pp`, and they are of the order Main -> Custom -> Final.
 
-### Business Process profile
-```bash
-export FACTER_profile=ei_bps
-puppet agent -vt
-```
-
-### Analytics profile
-```bash
-export FACTER_profile=ei_analytics
-puppet agent -vt
-```
-
-### Micro Integrator profile
-```bash
-export FACTER_profile=ei_micro_integrator
-puppet agent -vt
-```
-
-### MSF4J profile
-```bash
-export FACTER_profile=ei_msf4j
-puppet agent -vt
-```
-
-## Understanding the Project Structure
-In this project each profle of Enterprise Integrator is mapped to a module in puppet. By having this structure each puppet module is considered as a standalone profile so each module can be configured individually without harming any other module.
-
-```
-puppet-ei
-├── manifests
-│   └── site.pp
-└── modules
-    ├── ei_integrator
-    │   ├── files
-    │   │   └── ...
-    │   ├── manifests
-    │   │   ├── init.pp
-    │   │   ├── custom.pp
-    │   │   ├── params.pp
-    │   │   └── startserver.pp
-    │   └── templates
-    │       └── ...
-    ├── ei_broker
-    │   ├── files
-    │   │   └── ...
-    │   ├── manifests
-    │   │   ├── init.pp
-    │   │   ├── custom.pp
-    │   │   ├── params.pp
-    │   │   └── startserver.pp
-    │   └── templates
-    │       └── ...
-    ├── ei_bps
-    │   ├── files
-    │   │   └── ...
-    │   ├── manifests
-    │   │   ├── init.pp
-    │   │   ├── custom.pp
-    │   │   ├── params.pp
-    │   │   └── startserver.pp
-    │   └── templates
-    │       └── ...
-    ├── ei_analytics
-    │   ├── files
-    │   │   └── ...
-    │   ├── manifests
-    │   │   ├── init.pp
-    │   │   ├── custom.pp
-    │   │   ├── params.pp
-    │   │   └── startserver.pp
-    │   └── templates
-    │       └── ...
-    ├── ei_micro_integrator
-    │   ├── files
-    │   │   └── ...
-    │   ├── manifests
-    │   │   ├── init.pp
-    │   │   ├── custom.pp
-    │   │   ├── params.pp
-    │   │   └── startserver.pp
-    │   └── templates
-    │       └── ...
-    └── ei_msf4j
-        ├── files
-        │   └── ...
-        ├── manifests
-        │   ├── init.pp
-        │   ├── custom.pp
-        │   ├── params.pp
-        │   └── startserver.pp
-        └── templates
-            └── ...
-
-```
-
-### Manifests in a module
-Each puppet module contains following pp files
-- init.pp <br>
-This contains the main script of the module.
-- custom.pp <br>
-This is used to add custom user code to the profile.
-- params.pp <br>
-This contains all the necessary parameters for main configurations and template rendering.
-- startserver.pp <br>
-This runs finally and starts the server as a service.
+Each Puppet module contains the following .pp files.
+* Main
+    * params.pp: Contains all the parameters necessary for the main configuration and template
+    * init.pp: Contains the main script of the module.
+* Custom
+    * custom.pp: Used to add custom configurations to the Puppet module.
+* Final
+    * startserver.pp: Runs at the end and starts the server as a linux service.
+    
