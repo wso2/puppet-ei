@@ -30,8 +30,7 @@
 : ${puppet_env:="/etc/puppet/code/environments/production"}
 
 # Apply configurations
-export FACTER_profile=ei_micro_integrator_master
-puppet agent -vt
+puppet apply -e "include ei_micro_integrator_master" --modulepath=${puppet_env}/modules
 
 # exit immediately if a command exits with a non-zero status
 set -e
