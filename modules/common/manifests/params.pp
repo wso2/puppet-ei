@@ -72,11 +72,6 @@ class common::params {
   $permission_db_password = 'wso2carbon'
   $permission_db_driver = 'org.h2.Driver'
 
-  $message_tracing_db_url = 'jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/MESSAGE_TRACING_DB;AUTO_SERVER=TRUE'
-  $message_tracing_db_username = 'wso2carbon'
-  $message_tracing_db_password = 'wso2carbon'
-  $message_tracing_db_driver = 'org.h2.Driver'
-
   $ei_analytics_db_url = 'jdbc:h2:${sys:carbon.home}/wso2/worker/database/EI_ANALYTICS;AUTO_SERVER=TRUE'
   $ei_analytics_db_username = 'wso2carbon'
   $ei_analytics_db_password = 'wso2carbon'

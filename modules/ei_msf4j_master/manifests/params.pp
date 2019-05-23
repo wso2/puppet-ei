@@ -20,26 +20,18 @@ class ei_msf4j_master::params inherits common::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
-  $product_version = '6.4.0'
+  $product_version = '6.5.0'
   $profile = 'msf4j'
 
   # Define the template
   $template_list = [
     'wso2/msf4j/conf/transports/netty-transports.yml',
-    'wso2/msf4j/conf/data-bridge/data-agent-config.xml',
   ]
 
   # ------ Configuration Params ------ #
 
   # netty-transports.yaml
   $host = '0.0.0.0'
-
-  # data-agent-config.xml
-  $thrift_agent_trust_store = 'conf/data-bridge/client-truststore.jks'
-  $thrift_agent_trust_store_password = 'wso2carbon'
-
-  $binary_agent_trust_store = 'conf/data-bridge/client-truststore.jks'
-  $binary_agent_trust_store_password = 'wso2carbon'
 
   # Directories
   $products_dir = "/usr/local/wso2"
