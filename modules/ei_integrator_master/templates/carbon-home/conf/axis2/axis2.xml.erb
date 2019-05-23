@@ -56,14 +56,14 @@
 
     <!--If turned on with use the Accept header of the request to determine the contentType of the
     response-->
-    <parameter name="httpContentNegotiation">true</parameter>
+    <parameter name="httpContentNegotiation">false</parameter>
 
     <!--the directory in which modules are deployed inside axis2 repository-->
     <parameter name="ModulesDirectory">axis2modules</parameter>
 
     <!-- User agent and the server details to be used in the http communication -->
-    <parameter name="userAgent" locked="true">WSO2 EI 6.4.0</parameter>
-    <parameter name="server" locked="true">WSO2 EI 6.4.0</parameter>
+    <parameter name="userAgent" locked="true">WSO2 EI 6.5.0</parameter>
+    <parameter name="server" locked="true">WSO2 EI 6.5.0</parameter>
 
     <!-- During a fault, stacktrace can be sent with the fault message. The following flag -->
     <!-- will control that behaviour -->
@@ -279,7 +279,7 @@
 
     <transportReceiver name="local" class="org.wso2.carbon.core.transports.local.CarbonLocalTransportReceiver"/>
 
-    <!--<transportReceiver name="vfs" class="org.apache.synapse.transport.vfs.VFSTransportListener"/>-->
+    <transportReceiver name="vfs" class="org.apache.synapse.transport.vfs.VFSTransportListener"/>
 
     <!--<transportReceiver name="mailto" class="org.apache.axis2.transport.mail.MailTransportListener">-->
         <!-- configure any optional POP3/IMAP properties
@@ -431,7 +431,7 @@
    <!-- uncomment this and configure to use connection pools for sending messages>
      <transportSender name="jms" class="org.apache.axis2.transport.jms.JMSSender"/-->
 
-    <!--transportSender name="vfs" class="org.apache.synapse.transport.vfs.VFSTransportSender"/-->
+    <transportSender name="vfs" class="org.apache.synapse.transport.vfs.VFSTransportSender"/>
 
     <!-- Uncomment and configure the SMTP server information
     check com.sun.mail.smtp package documentation for descriptions of properties
