@@ -22,7 +22,7 @@
 # Build artifacts and versions
 : ${product:="wso2ei"}
 : ${profile:="analytics-dashboard"}
-: ${product_version:="6.4.0"}
+: ${product_version:="6.5.0"}
 : ${products_dir:="/usr/local/wso2"}
 : ${distribution_path:=${products_dir}"/"${product}"/"${profile}"/"${product_version}}
 : ${install_path:=${distribution_path}"/"${product}"-"${product_version}}

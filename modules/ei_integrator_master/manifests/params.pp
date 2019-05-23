@@ -20,7 +20,7 @@ class ei_integrator_master::params inherits common::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
-  $product_version = '6.4.0'
+  $product_version = '6.5.0'
   $profile = 'integrator'
 
   # Define the template

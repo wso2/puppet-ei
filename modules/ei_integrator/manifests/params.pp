@@ -20,7 +20,7 @@ class ei_integrator::params {
   $user = 'wso2carbon'
   $user_group = 'wso2'
   $product = 'wso2ei'
-  $product_version = '6.4.0'
+  $product_version = '6.5.0'
   $profile = 'integrator'
   $service_name = "${product}-${profile}"
   # $local_ip = $::ipaddress
