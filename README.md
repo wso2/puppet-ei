@@ -12,7 +12,6 @@ This repository contains the Puppet modules for WSO2 Enterprise Integrator and t
    2. Reassign the *$jdk_name* variable in `<puppet_environment>/modules/<agent_module>/manifests/params.pp` to the name of the downloaded JDK distribution.
 3. Identify the absolute path of the Puppet environment in the build script by renaming the *puppet_env* variable in `<puppet_environment>/modules/<master_module>/build.sh`.
 4. Execute the build script.
-
     ```bash
     ./build.sh
     ```
@@ -32,17 +31,12 @@ This repository contains the Puppet modules for WSO2 Enterprise Integrator and t
         export FACTER_profile=ei_broker
         puppet agent -vt
         ```
-    4. Micro Integrator profile:
-        ```bash
-        export FACTER_profile=ei_micro_integrator
-        puppet agent -vt
-        ```
-    5. msf4j profile:
+    4. msf4j profile:
         ```bash
         export FACTER_profile=ei_msf4j
         puppet agent -vt
         ```
-    6. Analytics profile:
+    5. Analytics profiles:
         1. Dashboard:
             ```bash
             export FACTER_profile=ei_analytics_dashboard
