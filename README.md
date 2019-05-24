@@ -31,12 +31,7 @@ This repository contains the Puppet modules for WSO2 Enterprise Integrator and t
         export FACTER_profile=ei_broker
         puppet agent -vt
         ```
-    4. msf4j profile:
-        ```bash
-        export FACTER_profile=ei_msf4j
-        puppet agent -vt
-        ```
-    5. Analytics profiles:
+    4. Analytics profiles:
         1. Dashboard:
             ```bash
             export FACTER_profile=ei_analytics_dashboard
