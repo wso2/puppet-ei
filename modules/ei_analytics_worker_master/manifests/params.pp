@@ -23,30 +23,6 @@ class ei_analytics_worker_master::params inherits common::params {
   $product_version = '6.5.0'
   $profile = 'analytics-worker'
 
-  # Define the template
-  $template_list = [
-    'wso2/analytics/conf/worker/deployment.yaml'
-  ]
-
-  # -------------- Deployment.yaml Config -------------- #
-
-  # Carbon Configuration Parameters
-  $ports_offset = 0
-
-  # transport.http config
-  $default_listener_host = '0.0.0.0'
-  $msf4j_host = '0.0.0.0'
-  $msf4j_listener_keystore = '${carbon.home}/resources/security/wso2carbon.jks'
-  $msf4j_listener_keystore_password = 'wso2carbon'
-  $msf4j_listener_keystore_cert_pass = 'wso2carbon'
-
-  # siddhi.stores.query.api config
-  $siddhi_default_listener_host = '0.0.0.0'
-  $siddhi_msf4j_host = '0.0.0.0'
-  $siddhi_msf4j_listener_keystore = '${carbon.home}/resources/security/wso2carbon.jks'
-  $siddhi_msf4j_listener_keystore_password = 'wso2carbon'
-  $siddhi_msf4j_listener_keystore_cert_pass = 'wso2carbon'
-
   # Directories
   $products_dir = "/usr/local/wso2"
 
