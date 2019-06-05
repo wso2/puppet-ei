@@ -21,7 +21,6 @@ class ei_integrator::params {
   $user_group = 'wso2'
   $product = 'wso2ei'
   $product_version = '6.5.0'
-  $profile = 'integrator'
   $service_name = "${product}-${profile}"
   # $local_ip = $::ipaddress
 
@@ -36,32 +35,58 @@ class ei_integrator::params {
   $java_home = "${lib_dir}/${jdk_name}"
 
   # Define the template
-  $start_script_template = "bin/${profile}.sh"
+  $start_script_template = "bin/integrator.sh"
 
-  # Directories
-  $products_dir = "/usr/local/wso2"
+  # Define the template
+  $template_list = [
+    'conf/datasources/master-datasources.xml',
+    'conf/carbon.xml',
+    'conf/axis2/axis2.xml',
+    'conf/user-mgt.xml',
+  ]
 
-  # Product and installation information
-  $product_binary = "${product}-${product_version}.zip"
-  $distribution_path = "${products_dir}/${product}/${profile}/${product_version}"
-  $install_path = "${distribution_path}/${product}-${product_version}"
+  # ------ Configuration Params ------ #
 
-  # List of files that must contain agent specific configuraitons
-  # if $deployment == "dev" {
-  #   $config_file_list = [
-  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
-  #   ]
-  # }
-  # elsif $deployment == "staging" {
-  #   $config_file_list = [
-  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
-  #   ]
-  # }
-  # elsif $deployment == "production" {
-  #   $config_file_list = [
-  #     { "file" => "${install_path}/conf/axis2/axis2.xml", "key" => "LOCAL_IP", "value" => "${local_ip}" },
-  #     { "file" => "${install_path}/conf/carbon.xml", "key" => "HOSTNAME", "value" => "localhost" },
-  #     { "file" => "${install_path}/conf/carbon.xml", "key" => "MGT_HOSTNAME", "value" => "localhost" },
-  #   ]
-  # }
+  # carbon.xml
+  $security_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
+  $security_keystore_type = 'JKS'
+  $security_keystore_password = 'wso2carbon'
+  $security_keystore_key_alias = 'wso2carbon'
+  $security_keystore_key_password = 'wso2carbon'
+
+  $security_internal_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
+  $security_internal_keystore_type = 'JKS'
+  $security_internal_keystore_password = 'wso2carbon'
+  $security_internal_keystore_key_alias = 'wso2carbon'
+  $security_internal_keystore_key_password = 'wso2carbon'
+
+  $security_trust_store_location = '${carbon.home}/repository/resources/security/client-truststore.jks'
+  $security_trust_store_type = 'JKS'
+  $security_trust_store_password = 'wso2carbon'
+
+  # axis2.xml
+  $transport_receiver_keystore_location = 'repository/resources/security/wso2carbon.jks'
+  $transport_receiver_keystore_type = 'JKS'
+  $transport_receiver_keystore_password = 'wso2carbon'
+  $transport_receiver_keystore_key_password = 'wso2carbon'
+
+  $transport_receiver_trust_store_location = 'repository/resources/security/client-truststore.jks'
+  $transport_receiver_trust_store_type = 'JKS'
+  $transport_receiver_trust_store_password = 'wso2carbon'
+
+  $transport_sender_keystore_location = 'repository/resources/security/wso2carbon.jks'
+  $transport_sender_keystore_type = 'JKS'
+  $transport_sender_keystore_password = 'wso2carbon'
+  $transport_sender_keystore_key_password = 'wso2carbon'
+
+  $transport_sender_trust_store_location = 'repository/resources/security/client-truststore.jks'
+  $transport_sender_trust_store_type = 'JKS'
+  $transport_sender_trust_store_password = 'wso2carbon'
+
+  $hostname = 'localhost'
+  $mgt_hostname = 'localhost'
+
+  # ----- axis2.xml config params -----
+  $clustering_enabled = 'false'
+  $clustering_membership_scheme = 'multicast'
 }
