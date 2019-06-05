@@ -23,59 +23,6 @@ class ei_integrator_master::params inherits common::params {
   $product_version = '6.5.0'
   $profile = 'integrator'
 
-  # Define the template
-  $template_list = [
-    'conf/datasources/master-datasources.xml',
-    'conf/carbon.xml',
-    'conf/axis2/axis2.xml',
-    'conf/user-mgt.xml',
-  ]
-
-  # ------ Configuration Params ------ #
-
-  # carbon.xml
-  $security_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
-  $security_keystore_type = 'JKS'
-  $security_keystore_password = 'wso2carbon'
-  $security_keystore_key_alias = 'wso2carbon'
-  $security_keystore_key_password = 'wso2carbon'
-
-  $security_internal_keystore_location = '${carbon.home}/repository/resources/security/wso2carbon.jks'
-  $security_internal_keystore_type = 'JKS'
-  $security_internal_keystore_password = 'wso2carbon'
-  $security_internal_keystore_key_alias = 'wso2carbon'
-  $security_internal_keystore_key_password = 'wso2carbon'
-
-  $security_trust_store_location = '${carbon.home}/repository/resources/security/client-truststore.jks'
-  $security_trust_store_type = 'JKS'
-  $security_trust_store_password = 'wso2carbon'
-
-  # axis2.xml
-  $transport_receiver_keystore_location = 'repository/resources/security/wso2carbon.jks'
-  $transport_receiver_keystore_type = 'JKS'
-  $transport_receiver_keystore_password = 'wso2carbon'
-  $transport_receiver_keystore_key_password = 'wso2carbon'
-
-  $transport_receiver_trust_store_location = 'repository/resources/security/client-truststore.jks'
-  $transport_receiver_trust_store_type = 'JKS'
-  $transport_receiver_trust_store_password = 'wso2carbon'
-
-  $transport_sender_keystore_location = 'repository/resources/security/wso2carbon.jks'
-  $transport_sender_keystore_type = 'JKS'
-  $transport_sender_keystore_password = 'wso2carbon'
-  $transport_sender_keystore_key_password = 'wso2carbon'
-
-  $transport_sender_trust_store_location = 'repository/resources/security/client-truststore.jks'
-  $transport_sender_trust_store_type = 'JKS'
-  $transport_sender_trust_store_password = 'wso2carbon'
-
-  $hostname = 'localhost'
-  $mgt_hostname = 'localhost'
-
-  # ----- axis2.xml config params -----
-  $clustering_enabled = 'false'
-  $clustering_membership_scheme = 'multicast'
-
   # Directories
   $products_dir = "/usr/local/wso2"
 

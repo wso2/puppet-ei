@@ -37,28 +37,27 @@ class ei_analytics_worker::params {
   # Define the template
   $start_script_template = 'wso2/analytics/wso2/worker/bin/carbon.sh'
 
-  # Directories
-  $products_dir = "/usr/local/wso2"
+  # Define the template
+  $template_list = [
+    'wso2/analytics/conf/worker/deployment.yaml'
+  ]
 
-  # Product and installation information
-  $product_binary = "${product}-${product_version}.zip"
-  $distribution_path = "${products_dir}/${product}/${profile}/${product_version}"
-  $install_path = "${distribution_path}/${product}-${product_version}"
+  # -------------- Deployment.yaml Config -------------- #
 
-  # List of files that must contain agent specific configuraitons
-  # if $deployment == "dev" {
-  #   $config_file_list = [
-  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
-  #   ]
-  # }
-  # elsif $deployment == "staging" {
-  #   $config_file_list = [
-  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
-  #   ]
-  # }
-  # elsif $deployment == "production" {
-  #   $config_file_list = [
-  #     { "file" => "${install_path}/file1", "key" => "key1", "value" => "value1" },
-  #   ]
-  # }
+  # Carbon Configuration Parameters
+  $ports_offset = 0
+
+  # transport.http config
+  $default_listener_host = '0.0.0.0'
+  $msf4j_host = '0.0.0.0'
+  $msf4j_listener_keystore = '${carbon.home}/resources/security/wso2carbon.jks'
+  $msf4j_listener_keystore_password = 'wso2carbon'
+  $msf4j_listener_keystore_cert_pass = 'wso2carbon'
+
+  # siddhi.stores.query.api config
+  $siddhi_default_listener_host = '0.0.0.0'
+  $siddhi_msf4j_host = '0.0.0.0'
+  $siddhi_msf4j_listener_keystore = '${carbon.home}/resources/security/wso2carbon.jks'
+  $siddhi_msf4j_listener_keystore_password = 'wso2carbon'
+  $siddhi_msf4j_listener_keystore_cert_pass = 'wso2carbon'
 }
