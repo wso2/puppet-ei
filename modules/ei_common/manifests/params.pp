@@ -14,7 +14,60 @@
 #  limitations under the License.
 #----------------------------------------------------------------------------
 
-class common::params {
+class ei_common::params {
+
+  $packages = ["unzip"]
+  $version = "6.5.0"
+  $pack = "wso2ei-${version}"
+
+  $user = 'wso2carbon'
+  $user_group = 'wso2'
+  $user_id = 802
+  $user_group_id = 802
+
+  # JDK Distributions
+  $java_dir = "/opt"
+  $java_symlink = "${java_dir}/java"
+  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
+  $java_home = "${java_dir}/${jdk_name}"
+
+  $profile = $profile
+  $target = "/mnt"
+  $product_dir = "${target}/${profile}"
+  $pack_dir = "${target}/${profile}/packs"
+  $wso2_service_name = "wso2${profile}"
+
+  # Pack Directories
+  $carbon_home = "${product_dir}/${pack}"
+  $product_binary = "${pack}.zip"
+
+  # ----- Profile configs -----
+  case $profile {
+    'ei_analytics_dashboard': {
+      $server_script_path = "${carbon_home}/wso2/analytics/wso2/dashboard/bin/carbon.sh"
+      $pid_file_path = "${carbon_home}/wso2/analytics/wso2/dashboard/runtime.pid"
+    }
+    'ei_analytics_worker': {
+      $server_script_path = "${carbon_home}/wso2/analytics/wso2/worker/bin/carbon.sh"
+      $pid_file_path = "${carbon_home}/wso2/analytics/wso2/worker/runtime.pid"
+    }
+    'ei_integrator': {
+      $server_script_path = "${carbon_home}/bin/integrator.sh"
+      $pid_file_path = "${carbon_home}/wso2carbon.pid"
+    }
+    'ei_bps': {
+      $server_script_path = "${carbon_home}/wso2/business-process/bin/wso2server.sh"
+      $pid_file_path = "${carbon_home}/wso2/business-process/wso2carbon.pid"
+    }
+    'ei_broker': {
+      $server_script_path = "${carbon_home}/wso2/broker/bin/wso2server.sh"
+      $pid_file_path = "${carbon_home}/wso2/broker/wso2carbon.pid"
+    }
+  }
+
+  # Server stop retry configs
+  $try_count = 5
+  $try_sleep = 5
 
   # ----- Master-datasources config params -----
   $carbon_db_url = 'jdbc:h2:./repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
