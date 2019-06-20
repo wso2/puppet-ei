@@ -16,31 +16,23 @@
 
 # Claas ei_analytics_worker::params
 # This class includes all the necessary parameters.
-class ei_analytics_worker::params {
-  $user = 'wso2carbon'
-  $user_group = 'wso2'
-  $product = 'wso2ei'
-  $product_version = '6.5.0'
-  $profile = 'analytics-worker'
-  $service_name = "${product}-${profile}"
-
-  # JDK Distributions
-  if $::osfamily == 'redhat' {
-    $lib_dir = "/usr/lib64/wso2"
-  }
-  elsif $::osfamily == 'debian' {
-    $lib_dir = "/usr/lib/wso2"
-  }
-  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
-  $java_home = "${lib_dir}/${jdk_name}"
+class ei_analytics_worker::params inherits ei_common::params {
 
   # Define the template
   $start_script_template = 'wso2/analytics/wso2/worker/bin/carbon.sh'
+  $jvmxms = '256m'
+  $jvmxmx = '1024m'
 
   # Define the template
   $template_list = [
     'wso2/analytics/conf/worker/deployment.yaml'
   ]
+
+  # Define file list
+  $file_list = []
+
+  # Define remove file list
+  $file_removelist = []
 
   # -------------- Deployment.yaml Config -------------- #
 

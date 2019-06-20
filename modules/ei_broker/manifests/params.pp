@@ -16,27 +16,12 @@
 
 # Claas ei_broker::params
 # This class includes all the necessary parameters.
-class ei_broker::params {
-  $user = 'wso2carbon'
-  $user_group = 'wso2'
-  $product = 'wso2ei'
-  $product_version = '6.5.0'
-  $profile = 'broker'
-  $service_name = "${product}-${profile}"
-  # $local_ip = $::ipaddress
-
-  # JDK Distributions
-  if $::osfamily == 'redhat' {
-    $lib_dir = "/usr/lib64/wso2"
-  }
-  elsif $::osfamily == 'debian' {
-    $lib_dir = "/usr/lib/wso2"
-  }
-  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
-  $java_home = "${lib_dir}/${jdk_name}"
+class ei_broker::params inherits ei_common::params {
 
   # Define the template
   $start_script_template = "wso2/broker/bin/wso2server.sh"
+  $jvmxms = '256m'
+  $jvmxmx = '1024m'
 
   # Define the template
   $template_list = [
@@ -46,6 +31,12 @@ class ei_broker::params {
     'wso2/broker/conf/axis2/axis2.xml',
     'wso2/broker/conf/user-mgt.xml',
   ]
+
+  # Define file list
+  $file_list = []
+
+  # Define remove file list
+  $file_removelist = []
 
   # ------ Configuration Params ------ #
 
