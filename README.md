@@ -3,7 +3,7 @@
 This repository contains the Puppet modules for WSO2 Enterprise Integrator and the profiles related to Enterprise Integrator Analytics.
 
 ## Quick Start Guide
-1. Download an updated wso2ei-6.5.0.zip pack and copy it to the `<puppet_environment>/modules/ei_common/files/packs` directory in the **Puppetmaster**.
+1. Download a wso2ei-6.5.0.zip pack and copy it to the `<puppet_environment>/modules/ei_common/files/packs` directory in the **Puppetmaster**.
 
 2. Set up the JDK distribution as follows:
 
@@ -43,7 +43,7 @@ The run stages for Puppet are described in `<puppet_environment>/manifests/site.
 
 Each Puppet module contains the following .pp files.
 * Main
-    * params.pp: Contains all the parameters necessary for the main configuration and template
+    * params.pp: Contains all the parameters necessary for the main configuration and template.
     * init.pp: Contains the main script of the module.
 * Custom
     * custom.pp: Used to add custom configurations to the Puppet module.
