@@ -9,7 +9,7 @@
 # You may obtain a copy of the License at
 #
 # http://www.apache.org/licenses/LICENSE-2.0
-
+#
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,27 +24,28 @@ set -e
 # Build artifacts and versions
 : ${version:="6.5.0"}
 : ${pack:="wso2ei-"${version}}
-: ${cwd:=$(pwd)}
-: ${carbon_home=${cwd}/${pack}}
+: ${packs_dir:=$(pwd)/../modules/ei_common/files/packs/}
+: ${carbon_home=${packs_dir}/${pack}}
 
 usage() { echo "Usage: $0 -p <profile_name>" 1>&2; exit 1; }
 
 unzip_pack() {
-    if [[ -d ${cwd}/${1} ]]
+    if [[ -d ${packs_dir}/${1} ]]
     then
         echo "The current directory contains a directory ${1}. Please move the directory to another location."
     fi
     echo "Unzipping ${1}.zip..."
-    unzip -q ${cwd}/${1}.zip
-}
-
-delete_pack() {
-    rm ${cwd}/${1}.zip
+    unzip -q ${packs_dir}/${1}.zip
 }
 
 update_pack() {
-    delete_pack ${1}
-    cd ${cwd}
+    if ! [ -x "$(command -v zip)" ]; then
+        echo 'Error: zip is not installed.' >&2
+        rm -rf ${packs_dir}/${1}
+        exit 1
+    fi
+    rm ${packs_dir}/${1}.zip
+    cd ${packs_dir}
     echo "Repackaging ${1}..."
     zip -qr ${1}.zip ${1}
     rm -rf ${1}
@@ -66,8 +67,8 @@ if [[ -z "${profile}" ]]; then
     usage
 fi
 
-profiles=("ei_analytics_dashboard" "ei_analytics_worker" "ei_bps" "ei_broker" "ei_integrator")
-if [[ ! " ${profiles[@]} " =~ " ${profile} " ]]; then
+modules=("ei_analytics_dashboard" "ei_analytics_worker" "ei_bps" "ei_broker" "ei_integrator")
+if [[ ! " ${modules[@]} " =~ " ${profile} " ]]; then
     echo "Invalid profile. Please provide one of the following profiles:
             ei_integrator
             ei_bps
@@ -77,35 +78,8 @@ if [[ ! " ${profiles[@]} " =~ " ${profile} " ]]; then
     exit 1
 fi
 
-# Check if user has a WSO2 subscription
-while :
-do
-  read -p "Do you have a WSO2 subscription? (Y/n) "
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z "$REPLY" ]]
-  then
-    unzip_pack ${pack}
-    if [[ ! -f ${carbon_home}/bin/update_linux ]]
-    then
-      echo "Update executable not found. Please download package for subscription users from website."
-      echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
-      delete_pack ${pack}
-      exit 1
-    else
-      break
-    fi
-  elif [[ $REPLY =~ ^[Nn]$ ]]
-  then
-    echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
-    exit 0
-  else
-    echo "Invalid input provided."
-    sleep .5
-  fi
-done
-
 # Create updates directory if it doesn't exist
-updates_dir=${cwd}/updates/${pack}
+updates_dir=$(pwd)/update_logs/${pack}
 if [[ ! -d ${updates_dir} ]]
 then
   mkdir -p ${updates_dir}
@@ -121,6 +95,39 @@ if [[ -f ${updates_dir}/status ]]
 then
   status=$(cat ${updates_dir}/status)
 fi
+
+cd ${packs_dir}
+# Check if user has a WSO2 subscription
+while :
+do
+  read -p "Do you have a WSO2 subscription? (Y/n) "
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z "$REPLY" ]]
+  then
+    # The pack should not be unzipped if a conflict is being resolved
+    if [[ ${status} -ne 3 ]]
+    then
+        unzip_pack ${pack}
+    fi
+
+    if [[ ! -f ${carbon_home}/bin/update_linux ]]
+    then
+      echo "Update executable not found. Please download package for subscription users from website."
+      echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
+      rm -rf ${packs_dir}/${pack}
+      exit 1
+    else
+      break
+    fi
+  elif [[ $REPLY =~ ^[Nn]$ ]]
+  then
+    echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
+    exit 0
+  else
+    echo "Invalid input provided."
+    sleep .5
+  fi
+done
 
 # Move into binaries directory
 cd ${carbon_home}/bin
@@ -139,10 +146,12 @@ then
   if [[ ${update_status} -eq 1 ]]
   then
     echo "Error occurred while attempting to resolve conflicts."
+    rm -rf ${packs_dir}/${pack}
     exit 1
   fi
 else
   echo "status file is invalid. Please delete or clear file content."
+  rm -rf ${packs_dir}/${pack}
   exit 1
 fi
 
@@ -163,9 +172,10 @@ then
   update_pack ${pack}
 elif [[ ${update_status} -eq 3 ]]
 then
-  echo "Conflicts encountered. Please resolve conflicts and run the update script again."
+  echo "Conflicts encountered. Please resolve conflicts in ${packs_dir}/${pack} and run the update script again."
 else
   echo "Update error occurred. Stopped with exit code ${update_status}"
+  rm -rf ${packs_dir}/${pack}
   exit ${update_status}
 fi
 
@@ -185,11 +195,15 @@ then
 
   while read -r line; do
     filepath=${line##*${pack}/}
-    template_file=${cwd}/../../../${profile}/templates/carbon-home/${filepath}.erb
-    if [[ -f ${template_file} ]]
-    then
-      updated_templates+=("modules/"${template_file##*${cwd}/../../../})
-    fi
+
+    for module in "${modules[@]}"
+    do
+        template_file=${packs_dir}/../../../${module}/templates/carbon-home/${filepath}.erb
+        if [[ -f ${template_file} ]]
+        then
+            updated_templates+=("modules/"${template_file##*${packs_dir}/../../../})
+        fi
+    done
   done < ${updates_dir}/merged_files.txt
 
   # Display template files to be changed
