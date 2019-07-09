@@ -31,6 +31,13 @@ class ei_common::params {
   $user_id = 802
   $user_group_id = 802
 
+  # Performance tuning configurations
+  $enable_performance_tuning = false
+  $performance_tuning_flie_list = [
+    'etc/sysctl.conf',
+    'etc/security/limits.conf',
+  ]
+
   # JDK Distributions
   $java_dir = "/opt"
   $java_symlink = "${java_dir}/java"
