@@ -48,14 +48,14 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url><%= @wso2carbon_db_url %></url>
-                    <username><%= @wso2carbon_db_username %></username>
-                    <password><%= @wso2carbon_db_password %></password>
-                    <driverClassName><%= @wso2carbon_db_driver %></driverClassName>
+                    <url><%= @carbon_db_url %></url>
+                    <username><%= @carbon_db_username %></username>
+                    <password><%= @carbon_db_password %></password>
+                    <driverClassName><%= @carbon_db_driver %></driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery><%= @wso2carbon_db_validation_query %></validationQuery>
+                    <validationQuery><%= @carbon_db_validation_query %></validationQuery>
                     <validationInterval>30000</validationInterval>
                 </configuration>
             </definition>
