@@ -74,7 +74,7 @@ class ei_common::params {
   $carbon_db_username = 'wso2carbon'
   $carbon_db_password = 'wso2carbon'
   $carbon_db_driver = 'org.h2.Driver'
-  $wso2carbon_db_validation_query = 'SELECT 1'
+  $carbon_db_validation_query = 'SELECT 1'
 
   $wso2am_db_url = 'jdbc:h2:repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE'
   $wso2am_db_username = 'wso2carbon'
