@@ -2,6 +2,8 @@
 
 This repository contains the Puppet modules for WSO2 Enterprise Integrator and the profiles related to Enterprise Integrator Analytics.
 
+These modules are supported for Puppet 5.4.0
+
 ## Quick Start Guide
 1. Download a product package. Product packages can be downloaded and copied to a local directory, or downloaded from a remote location.
    * **Local**: Download a wso2ei-6.5.0.zip or wso2ei-analytics-6.5.0.zip to your preferred deployment pattern and copy it to the `<puppet_environment>/modules/ei_common/files/packs` directory in the **Puppetmaster**.
