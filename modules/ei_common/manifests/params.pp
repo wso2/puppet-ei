@@ -17,7 +17,7 @@
 class ei_common::params {
 
   $packages = ["unzip"]
-  $version = "6.5.0"
+  $version = "6.6.0"
   $pack = "wso2ei-${version}"
 
   $user = 'wso2carbon'
@@ -28,7 +28,7 @@ class ei_common::params {
   # JDK Distributions
   $java_dir = "/opt"
   $java_symlink = "${java_dir}/java"
-  $jdk_name = 'amazon-corretto-8.202.08.2-linux-x64'
+  $jdk_name = 'amazon-corretto-11.0.5.10.1-linux-x64'
   $java_home = "${java_dir}/${jdk_name}"
 
   $profile = $profile
