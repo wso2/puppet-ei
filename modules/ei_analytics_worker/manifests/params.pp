@@ -52,4 +52,21 @@ class ei_analytics_worker::params inherits ei_common::params {
   $siddhi_msf4j_listener_keystore = '${carbon.home}/resources/security/wso2carbon.jks'
   $siddhi_msf4j_listener_keystore_password = 'wso2carbon'
   $siddhi_msf4j_listener_keystore_cert_pass = 'wso2carbon'
+
+  # Authentication configuration
+  $authentication_type = 'local'
+  $authentication_admin_role = 'admin'
+  $user_store_users = [
+    {
+      username  =>  'admin',
+      password  =>  'YWRtaW4=',
+      roles     =>  1
+    }
+  ]
+  $user_store_roles = [
+    {
+      displayName  =>  'admin',
+      id     =>  1
+    }
+  ]
 }
