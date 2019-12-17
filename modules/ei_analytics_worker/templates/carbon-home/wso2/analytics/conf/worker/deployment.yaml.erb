@@ -427,21 +427,24 @@ cluster.config:
 
 # Authentication configuration
 auth.configs:
-  type: 'local'        # Type of the IdP client used
+  type: '<%= @authentication_type %>'        # Type of the IdP client used
   userManager:
-    adminRole: admin   # Admin role which is granted all permissions
+    adminRole: <%= @authentication_admin_role %>   # Admin role which is granted all permissions
     userStore:         # User store
       users:
-        -
+        -<% @user_store_users.each do |user| %>
           user:
-            username: admin
-            password: YWRtaW4=
-            roles: 1
+            username: <%= user['username'] %>
+            password: <%= user['password'] %>
+            roles: <%= user['roles'] %>
+        <% end %>
+
       roles:
-        -
+        -<% @user_store_roles.each do |role| %>
           role:
-            id: 1
-            displayName: admin
+            id: <%= role['id'] %>
+            displayName: <%= role['displayName'] %>
+    <% end %>
 
   # Sample of deployment.config for Two node HA
 #deployment.config:
