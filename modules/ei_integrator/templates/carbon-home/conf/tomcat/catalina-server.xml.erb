@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!--
-  ~ Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~ Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
   ~ WSO2 Inc. licenses this file to you under the Apache License,
   ~ Version 2.0 (the "License"); you may not use this file except
@@ -42,9 +42,9 @@
                 compression="on"
                 compressionMinSize="2048"
                 noCompressionUserAgents="gozilla, traviata"
-                compressableMimeType="text/html,text/javascript,application/x-javascript,application/javascript,application/xml,text/css,application/xslt+xml,text/xsl,image/gif,image/jpg,image/jpeg"
-                URIEncoding="UTF-8"/>
-
+                compressibleMimeType="text/html,text/javascript,application/x-javascript,application/javascript,application/xml,text/css,application/xslt+xml,text/xsl,image/gif,image/jpg,image/jpeg"
+                URIEncoding="UTF-8">
+    </Connector>
     <!--
 	optional attributes:
 
@@ -53,7 +53,6 @@
     <Connector  protocol="org.apache.coyote.http11.Http11NioProtocol"
                 port="9443"
                 bindOnInit="false"
-                sslEnabledProtocols="TLSv1,TLSv1.1,TLSv1.2"
                 maxHttpHeaderSize="8192"
                 acceptorThreadCount="2"
                 maxThreads="250"
@@ -64,17 +63,29 @@
                 maxKeepAliveRequests="200"
                 acceptCount="200"
                 server="WSO2 Carbon Server"
-                clientAuth="false"
                 compression="on"
                 scheme="https"
                 secure="true"
                 SSLEnabled="true"
-				keystoreFile="${carbon.home}/repository/resources/security/wso2carbon.jks"
-				keystorePass="wso2carbon"
                 compressionMinSize="2048"
                 noCompressionUserAgents="gozilla, traviata"
-                compressableMimeType="text/html,text/javascript,application/x-javascript,application/javascript,application/xml,text/css,application/xslt+xml,text/xsl,image/gif,image/jpg,image/jpeg"
-                URIEncoding="UTF-8"/>
+                compressibleMimeType="text/html,text/javascript,application/x-javascript,application/javascript,application/xml,text/css,application/xslt+xml,text/xsl,image/gif,image/jpg,image/jpeg"
+                URIEncoding="UTF-8">
+        <SSLHostConfig
+                protocols="+TLSv1,+TLSv1.1,+TLSv1.2"
+                sslProtocol="TLS"
+                certificateVerification="false"
+                truststoreFile="${carbon.home}/repository/resources/security/client-truststore.jks"
+                truststorePassword="wso2carbon"
+                truststoreType="JKS"
+        >
+            <Certificate certificateKeystoreFile="${carbon.home}/repository/resources/security/wso2carbon.jks"
+                         certificateKeystorePassword="wso2carbon"
+                         certificateKeystoreType="JKS"
+                         certificateKeyAlias="wso2carbon"
+            />
+        </SSLHostConfig>
+    </Connector>
 
 
 
@@ -91,9 +102,9 @@
                pattern="combined" />
           <Valve className="org.wso2.carbon.tomcat.ext.valves.CarbonStuckThreadDetectionValve" threshold="600"/>
           <Valve className="org.wso2.carbon.tomcat.ext.valves.CompositeValve"/>
+          <Valve className="org.apache.catalina.valves.ErrorReportValve" showServerInfo="false" showReport="false"/>
           <!--<Valve className="org.wso2.carbon.integrator.core.IntegratorValve"/>-->
       </Host>
     </Engine>
   </Service>
 </Server>
-
