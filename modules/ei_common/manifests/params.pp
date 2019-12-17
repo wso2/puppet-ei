@@ -95,13 +95,19 @@ class ei_common::params {
   $wso2am_db_driver = 'org.h2.Driver'
   $wso2am_db_validation_query = 'SELECT 1'
 
+  $wso2shared_db_url = 'jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
+  $wso2shared_db_username = 'wso2carbon'
+  $wso2shared_db_password = 'wso2carbon'
+  $wso2shared_db_driver = 'org.h2.Driver'
+  $wso2shared_db_validation_query = 'SELECT 1'
+
   $stat_db_url = 'jdbc:h2:../tmpStatDB/WSO2AM_STATS_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE'
   $stat_db_username = 'wso2carbon'
   $stat_db_password = 'wso2carbon'
   $stat_db_driver = 'org.h2.Driver'
   $stat_db_validation_query = 'SELECT 1'
 
-  $mb_store_db_url = 'jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
+  $mb_store_db_url = 'jdbc:h2:./repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000'
   $mb_store_db_username = 'wso2carbon'
   $mb_store_db_password = 'wso2carbon'
   $mb_store_driver = 'org.h2.Driver'
