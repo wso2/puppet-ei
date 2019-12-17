@@ -39,6 +39,9 @@ This repository contains the Puppet modules for WSO2 Enterprise Integrator and t
             ```
 
 ## Manifests in a module
+
+![Module architecture](docs/images/module_architecture.png "Module architecture")
+
 The run stages for Puppet are described in `<puppet_environment>/manifests/site.pp`, and they are of the order Main -> Custom.
 
 Each Puppet module contains the following .pp files.
